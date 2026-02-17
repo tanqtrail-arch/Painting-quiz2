@@ -152,7 +152,7 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond','Noto Sans JP',serif}
 <div class="fg"><label>制作年</label><input type="text" id="inputYear" placeholder="例: 1503"></div>
 <div class="fg"><label>所蔵美術館</label><input type="text" id="inputMuseum" placeholder="例: ルーヴル美術館"></div>
 <div class="fg"><label>画像</label><div class="ua" id="uploadArea"><input type="file" id="fileInput" accept="image/*"><div id="uploadPlaceholder"><div class="ui">🖼️</div><div class="ut">クリックで画像をアップロード</div></div><img id="previewImg" style="display:none"></div></div>
-<div class="fg"><label>画像パス（GitHub用）</label><input type="text" id="inputImgPath" placeholder="例: images/renaissance/mona_lisa.jpg"></div>
+<div class="fg"><label>画像パス（GitHub用）</label><input type="text" id="inputImgPath" placeholder="例: images/renaissance/mona_lisa.png"></div>
 <div class="modal-actions"><button class="cnb" onclick="closeModal()">Cancel</button><button class="svb" onclick="savePainting()">Save</button></div></div></div>
 <script>
 const GENRES=["ルネサンス","バロック","印象派","後期印象派","表現主義","近代美術","抽象画","写実主義","ロマン主義","浮世絵","日本画","その他"];
@@ -164,7 +164,7 @@ const DEFAULT_DATA=[
     "genre": "ルネサンス",
     "year": "1503-1519",
     "museum": "ルーヴル美術館",
-    "img": "images/renaissance/mona_lisa.jpg",
+    "img": "images/renaissance/mona_lisa.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%A2%E3%83%8A%E3%83%BB%E3%83%AA%E3%82%B6%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%82%AA%E3%83%8A%E3%83%AB%E3%83%89%E3%83%BB%E3%83%80%E3%83%BB%E3%83%B4%E3%82%A3%E3%83%B3%E3%83%81%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1503-1519%3C/text%3E%3C/svg%3E"
   },
   {
@@ -174,7 +174,7 @@ const DEFAULT_DATA=[
     "genre": "ルネサンス",
     "year": "1495-1498",
     "museum": "サンタ・マリア・デッレ・グラツィエ教会",
-    "img": "images/renaissance/last_supper.jpg",
+    "img": "images/renaissance/last_supper.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9C%80%E5%BE%8C%E3%81%AE%E6%99%A9%E9%A4%90%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%82%AA%E3%83%8A%E3%83%AB%E3%83%89%E3%83%BB%E3%83%80%E3%83%BB%E3%83%B4%E3%82%A3%E3%83%B3%E3%83%81%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1495-1498%3C/text%3E%3C/svg%3E"
   },
   {
@@ -184,7 +184,7 @@ const DEFAULT_DATA=[
     "genre": "ルネサンス",
     "year": "1472-1475",
     "museum": "ウフィツィ美術館",
-    "img": "images/renaissance/annunciation.jpg",
+    "img": "images/renaissance/annunciation.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%8F%97%E8%83%8E%E5%91%8A%E7%9F%A5%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%82%AA%E3%83%8A%E3%83%AB%E3%83%89%E3%83%BB%E3%83%80%E3%83%BB%E3%83%B4%E3%82%A3%E3%83%B3%E3%83%81%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1472-1475%3C/text%3E%3C/svg%3E"
   },
   {
@@ -194,7 +194,7 @@ const DEFAULT_DATA=[
     "genre": "ルネサンス",
     "year": "1485頃",
     "museum": "ウフィツィ美術館",
-    "img": "images/renaissance/birth_of_venus.jpg",
+    "img": "images/renaissance/birth_of_venus.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%B4%E3%82%A3%E3%83%BC%E3%83%8A%E3%82%B9%E3%81%AE%E8%AA%95%E7%94%9F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B5%E3%83%B3%E3%83%89%E3%83%AD%E3%83%BB%E3%83%9C%E3%83%83%E3%83%86%E3%82%A3%E3%83%81%E3%82%A7%E3%83%AA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1485%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -204,7 +204,7 @@ const DEFAULT_DATA=[
     "genre": "ルネサンス",
     "year": "1482頃",
     "museum": "ウフィツィ美術館",
-    "img": "images/renaissance/primavera.jpg",
+    "img": "images/renaissance/primavera.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%98%A5%EF%BC%88%E3%83%97%E3%83%AA%E3%83%9E%E3%83%B4%E3%82%A7%E3%83%BC%E3%83%A9%EF%BC%89%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B5%E3%83%B3%E3%83%89%E3%83%AD%E3%83%BB%E3%83%9C%E3%83%83%E3%83%86%E3%82%A3%E3%83%81%E3%82%A7%E3%83%AA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1482%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -214,7 +214,7 @@ const DEFAULT_DATA=[
     "genre": "ルネサンス",
     "year": "1508-1512",
     "museum": "システィーナ礼拝堂",
-    "img": "images/renaissance/creation_of_adam.jpg",
+    "img": "images/renaissance/creation_of_adam.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%A2%E3%83%80%E3%83%A0%E3%81%AE%E5%89%B5%E9%80%A0%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9F%E3%82%B1%E3%83%A9%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1508-1512%3C/text%3E%3C/svg%3E"
   },
   {
@@ -224,7 +224,7 @@ const DEFAULT_DATA=[
     "genre": "ルネサンス",
     "year": "1536-1541",
     "museum": "システィーナ礼拝堂",
-    "img": "images/renaissance/last_judgment.jpg",
+    "img": "images/renaissance/last_judgment.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9C%80%E5%BE%8C%E3%81%AE%E5%AF%A9%E5%88%A4%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9F%E3%82%B1%E3%83%A9%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1536-1541%3C/text%3E%3C/svg%3E"
   },
   {
@@ -234,7 +234,7 @@ const DEFAULT_DATA=[
     "genre": "ルネサンス",
     "year": "1509-1511",
     "museum": "バチカン宮殿",
-    "img": "images/renaissance/school_of_athens.jpg",
+    "img": "images/renaissance/school_of_athens.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%A2%E3%83%86%E3%83%8A%E3%82%A4%E3%81%AE%E5%AD%A6%E5%A0%82%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%A9%E3%83%95%E3%82%A1%E3%82%A8%E3%83%AD%E3%83%BB%E3%82%B5%E3%83%B3%E3%83%86%E3%82%A3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1509-1511%3C/text%3E%3C/svg%3E"
   },
   {
@@ -244,7 +244,7 @@ const DEFAULT_DATA=[
     "genre": "バロック",
     "year": "1665頃",
     "museum": "マウリッツハイス美術館",
-    "img": "images/baroque/girl_pearl_earring.jpg",
+    "img": "images/baroque/girl_pearl_earring.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%9C%9F%E7%8F%A0%E3%81%AE%E8%80%B3%E9%A3%BE%E3%82%8A%E3%81%AE%E5%B0%91%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%A8%E3%83%8F%E3%83%8D%E3%82%B9%E3%83%BB%E3%83%95%E3%82%A7%E3%83%AB%E3%83%A1%E3%83%BC%E3%83%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1665%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -254,7 +254,7 @@ const DEFAULT_DATA=[
     "genre": "バロック",
     "year": "1658頃",
     "museum": "アムステルダム国立美術館",
-    "img": "images/baroque/milkmaid.jpg",
+    "img": "images/baroque/milkmaid.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%89%9B%E4%B9%B3%E3%82%92%E6%B3%A8%E3%81%90%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%A8%E3%83%8F%E3%83%8D%E3%82%B9%E3%83%BB%E3%83%95%E3%82%A7%E3%83%AB%E3%83%A1%E3%83%BC%E3%83%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1658%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -264,7 +264,7 @@ const DEFAULT_DATA=[
     "genre": "バロック",
     "year": "1642",
     "museum": "アムステルダム国立美術館",
-    "img": "images/baroque/night_watch.jpg",
+    "img": "images/baroque/night_watch.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%A4%9C%E8%AD%A6%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%83%B3%E3%83%96%E3%83%A9%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%83%AC%E3%82%A4%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1642%3C/text%3E%3C/svg%3E"
   },
   {
@@ -274,7 +274,7 @@ const DEFAULT_DATA=[
     "genre": "バロック",
     "year": "1659",
     "museum": "ナショナル・ギャラリー",
-    "img": "images/baroque/rembrandt_self.jpg",
+    "img": "images/baroque/rembrandt_self.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%87%AA%E7%94%BB%E5%83%8F%EF%BC%881659%E5%B9%B4%EF%BC%89%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%83%B3%E3%83%96%E3%83%A9%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%83%AC%E3%82%A4%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1659%3C/text%3E%3C/svg%3E"
   },
   {
@@ -284,7 +284,7 @@ const DEFAULT_DATA=[
     "genre": "バロック",
     "year": "1597頃",
     "museum": "ウフィツィ美術館",
-    "img": "images/baroque/medusa.jpg",
+    "img": "images/baroque/medusa.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%A1%E3%83%87%E3%83%A5%E3%83%BC%E3%82%B5%E3%81%AE%E9%A6%96%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AB%E3%83%A9%E3%83%B4%E3%82%A1%E3%83%83%E3%82%B8%E3%82%AA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1597%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -294,7 +294,7 @@ const DEFAULT_DATA=[
     "genre": "バロック",
     "year": "1612-1614",
     "museum": "アントワープ大聖堂",
-    "img": "images/baroque/descent_cross.jpg",
+    "img": "images/baroque/descent_cross.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%AD%E3%83%AA%E3%82%B9%E3%83%88%E9%99%8D%E6%9E%B6%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%83%BC%E3%83%86%E3%83%AB%E3%83%BB%E3%83%91%E3%82%A6%E3%83%AB%E3%83%BB%E3%83%AB%E3%83%BC%E3%83%99%E3%83%B3%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1612-1614%3C/text%3E%3C/svg%3E"
   },
   {
@@ -304,7 +304,7 @@ const DEFAULT_DATA=[
     "genre": "バロック",
     "year": "1656",
     "museum": "プラド美術館",
-    "img": "images/baroque/las_meninas.jpg",
+    "img": "images/baroque/las_meninas.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%A9%E3%82%B9%E3%83%BB%E3%83%A1%E3%83%8B%E3%83%BC%E3%83%8A%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%87%E3%82%A3%E3%82%A8%E3%82%B4%E3%83%BB%E3%83%99%E3%83%A9%E3%82%B9%E3%82%B1%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1656%3C/text%3E%3C/svg%3E"
   },
   {
@@ -314,7 +314,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1906",
     "museum": "シカゴ美術館",
-    "img": "images/impressionism/water_lilies.jpg",
+    "img": "images/impressionism/water_lilies.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%9D%A1%E8%93%AE%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%89%E3%83%BB%E3%83%A2%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1906%3C/text%3E%3C/svg%3E"
   },
   {
@@ -324,7 +324,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1872",
     "museum": "マルモッタン・モネ美術館",
-    "img": "images/impressionism/impression_sunrise.jpg",
+    "img": "images/impressionism/impression_sunrise.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%8D%B0%E8%B1%A1%E3%83%BB%E6%97%A5%E3%81%AE%E5%87%BA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%89%E3%83%BB%E3%83%A2%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1872%3C/text%3E%3C/svg%3E"
   },
   {
@@ -334,7 +334,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1875",
     "museum": "ナショナル・ギャラリー",
-    "img": "images/impressionism/woman_parasol.jpg",
+    "img": "images/impressionism/woman_parasol.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%95%A3%E6%AD%A9%E3%80%81%E6%97%A5%E5%82%98%E3%82%92%E3%81%95%E3%81%99%E5%A5%B3%E6%80%A7%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%89%E3%83%BB%E3%83%A2%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1875%3C/text%3E%3C/svg%3E"
   },
   {
@@ -344,7 +344,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1876",
     "museum": "オルセー美術館",
-    "img": "images/impressionism/moulin_galette.jpg",
+    "img": "images/impressionism/moulin_galette.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%A0%E3%83%BC%E3%83%A9%E3%83%B3%E3%83%BB%E3%83%89%E3%83%BB%E3%83%A9%E3%83%BB%E3%82%AE%E3%83%A3%E3%83%AC%E3%83%83%E3%83%88%E3%81%AE%E8%88%9E%E8%B8%8F%E4%BC%9A%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%EF%BC%9D%E3%82%AA%E3%83%BC%E3%82%AE%E3%83%A5%E3%82%B9%E3%83%88%E3%83%BB%E3%83%AB%E3%83%8E%E3%83%AF%E3%83%BC%E3%83%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1876%3C/text%3E%3C/svg%3E"
   },
   {
@@ -354,7 +354,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1880-1881",
     "museum": "フィリップス・コレクション",
-    "img": "images/impressionism/luncheon_boating.jpg",
+    "img": "images/impressionism/luncheon_boating.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%88%9F%E9%81%8A%E3%81%B3%E3%81%AE%E6%98%BC%E9%A3%9F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%EF%BC%9D%E3%82%AA%E3%83%BC%E3%82%AE%E3%83%A5%E3%82%B9%E3%83%88%E3%83%BB%E3%83%AB%E3%83%8E%E3%83%AF%E3%83%BC%E3%83%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1880-1881%3C/text%3E%3C/svg%3E"
   },
   {
@@ -364,7 +364,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1874",
     "museum": "メトロポリタン美術館",
-    "img": "images/impressionism/dance_class.jpg",
+    "img": "images/impressionism/dance_class.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%90%E3%83%AC%E3%82%A8%E3%81%AE%E7%A8%BD%E5%8F%A4%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A8%E3%83%89%E3%82%AC%E3%83%BC%E3%83%BB%E3%83%89%E3%82%AC%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1874%3C/text%3E%3C/svg%3E"
   },
   {
@@ -374,7 +374,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1863",
     "museum": "オルセー美術館",
-    "img": "images/impressionism/luncheon_grass.jpg",
+    "img": "images/impressionism/luncheon_grass.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%8D%89%E4%B8%8A%E3%81%AE%E6%98%BC%E9%A3%9F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A8%E3%83%89%E3%82%A5%E3%82%A2%E3%83%BC%E3%83%AB%E3%83%BB%E3%83%9E%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1863%3C/text%3E%3C/svg%3E"
   },
   {
@@ -384,7 +384,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1866",
     "museum": "オルセー美術館",
-    "img": "images/impressionism/fifer.jpg",
+    "img": "images/impressionism/fifer.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%AC%9B%E3%82%92%E5%90%B9%E3%81%8F%E5%B0%91%E5%B9%B4%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A8%E3%83%89%E3%82%A5%E3%82%A2%E3%83%BC%E3%83%AB%E3%83%BB%E3%83%9E%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1866%3C/text%3E%3C/svg%3E"
   },
   {
@@ -394,7 +394,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1884-1886",
     "museum": "シカゴ美術館",
-    "img": "images/impressionism/grande_jatte.jpg",
+    "img": "images/impressionism/grande_jatte.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%89%E3%83%BB%E3%82%B8%E3%83%A3%E3%83%83%E3%83%88%E5%B3%B6%E3%81%AE%E6%97%A5%E6%9B%9C%E6%97%A5%E3%81%AE%E5%8D%88%E5%BE%8C%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B8%E3%83%A7%E3%83%AB%E3%82%B8%E3%83%A5%E3%83%BB%E3%82%B9%E3%83%BC%E3%83%A9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1884-1886%3C/text%3E%3C/svg%3E"
   },
   {
@@ -404,7 +404,7 @@ const DEFAULT_DATA=[
     "genre": "印象派",
     "year": "1899頃",
     "museum": "オルセー美術館",
-    "img": "images/impressionism/apples_oranges.jpg",
+    "img": "images/impressionism/apples_oranges.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%8A%E3%82%93%E3%81%94%E3%81%A8%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9D%E3%83%BC%E3%83%AB%E3%83%BB%E3%82%BB%E3%82%B6%E3%83%B3%E3%83%8C%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1899%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -414,7 +414,7 @@ const DEFAULT_DATA=[
     "genre": "後期印象派",
     "year": "1889",
     "museum": "ニューヨーク近代美術館",
-    "img": "images/post_impressionism/starry_night.jpg",
+    "img": "images/post_impressionism/starry_night.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%98%9F%E6%9C%88%E5%A4%9C%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%95%E3%82%A3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%82%B4%E3%83%83%E3%83%9B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1889%3C/text%3E%3C/svg%3E"
   },
   {
@@ -424,7 +424,7 @@ const DEFAULT_DATA=[
     "genre": "後期印象派",
     "year": "1888",
     "museum": "ナショナル・ギャラリー",
-    "img": "images/post_impressionism/sunflowers.jpg",
+    "img": "images/post_impressionism/sunflowers.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%81%B2%E3%81%BE%E3%82%8F%E3%82%8A%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%95%E3%82%A3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%82%B4%E3%83%83%E3%83%9B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1888%3C/text%3E%3C/svg%3E"
   },
   {
@@ -434,7 +434,7 @@ const DEFAULT_DATA=[
     "genre": "後期印象派",
     "year": "1888",
     "museum": "クレラー＝ミュラー美術館",
-    "img": "images/post_impressionism/cafe_terrace.jpg",
+    "img": "images/post_impressionism/cafe_terrace.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%A4%9C%E3%81%AE%E3%82%AB%E3%83%95%E3%82%A7%E3%83%86%E3%83%A9%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%95%E3%82%A3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%82%B4%E3%83%83%E3%83%9B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1888%3C/text%3E%3C/svg%3E"
   },
   {
@@ -444,7 +444,7 @@ const DEFAULT_DATA=[
     "genre": "後期印象派",
     "year": "1891",
     "museum": "オルセー美術館",
-    "img": "images/post_impressionism/tahitian_women.jpg",
+    "img": "images/post_impressionism/tahitian_women.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%BF%E3%83%92%E3%83%81%E3%81%AE%E5%A5%B3%E3%81%9F%E3%81%A1%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9D%E3%83%BC%E3%83%AB%E3%83%BB%E3%82%B4%E3%83%BC%E3%82%AE%E3%83%A3%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1891%3C/text%3E%3C/svg%3E"
   },
   {
@@ -454,7 +454,7 @@ const DEFAULT_DATA=[
     "genre": "後期印象派",
     "year": "1897-1898",
     "museum": "ボストン美術館",
-    "img": "images/post_impressionism/where_come_from.jpg",
+    "img": "images/post_impressionism/where_come_from.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%88%91%E3%80%85%E3%81%AF%E3%81%A9%E3%81%93%E3%81%8B%E3%82%89%E6%9D%A5%E3%81%9F%E3%81%AE%E3%81%8B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9D%E3%83%BC%E3%83%AB%E3%83%BB%E3%82%B4%E3%83%BC%E3%82%AE%E3%83%A3%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1897-1898%3C/text%3E%3C/svg%3E"
   },
   {
@@ -464,7 +464,7 @@ const DEFAULT_DATA=[
     "genre": "表現主義",
     "year": "1893",
     "museum": "オスロ国立美術館",
-    "img": "images/expressionism/the_scream.jpg",
+    "img": "images/expressionism/the_scream.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ex%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238b2e2e%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232e1a1a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ex%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f0c8c8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%8F%AB%E3%81%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8a0a0%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A8%E3%83%89%E3%83%B4%E3%82%A1%E3%83%AB%E3%83%89%E3%83%BB%E3%83%A0%E3%83%B3%E3%82%AF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1893%3C/text%3E%3C/svg%3E"
   },
   {
@@ -474,7 +474,7 @@ const DEFAULT_DATA=[
     "genre": "表現主義",
     "year": "1907-1908",
     "museum": "ベルヴェデーレ宮殿",
-    "img": "images/expressionism/the_kiss.jpg",
+    "img": "images/expressionism/the_kiss.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ex%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238b2e2e%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232e1a1a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ex%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f0c8c8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%8E%A5%E5%90%BB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8a0a0%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B0%E3%82%B9%E3%82%BF%E3%83%95%E3%83%BB%E3%82%AF%E3%83%AA%E3%83%A0%E3%83%88%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1907-1908%3C/text%3E%3C/svg%3E"
   },
   {
@@ -484,7 +484,7 @@ const DEFAULT_DATA=[
     "genre": "表現主義",
     "year": "1909",
     "museum": "ストクレー邸",
-    "img": "images/expressionism/tree_of_life.jpg",
+    "img": "images/expressionism/tree_of_life.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ex%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238b2e2e%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232e1a1a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ex%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f0c8c8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%94%9F%E5%91%BD%E3%81%AE%E6%A8%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8a0a0%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B0%E3%82%B9%E3%82%BF%E3%83%95%E3%83%BB%E3%82%AF%E3%83%AA%E3%83%A0%E3%83%88%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1909%3C/text%3E%3C/svg%3E"
   },
   {
@@ -494,7 +494,7 @@ const DEFAULT_DATA=[
     "genre": "近代美術",
     "year": "1937",
     "museum": "ソフィア王妃芸術センター",
-    "img": "images/modern/guernica.jpg",
+    "img": "images/modern/guernica.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%B2%E3%83%AB%E3%83%8B%E3%82%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%91%E3%83%96%E3%83%AD%E3%83%BB%E3%83%94%E3%82%AB%E3%82%BD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1937%3C/text%3E%3C/svg%3E"
   },
   {
@@ -504,7 +504,7 @@ const DEFAULT_DATA=[
     "genre": "近代美術",
     "year": "1907",
     "museum": "ニューヨーク近代美術館",
-    "img": "images/modern/demoiselles_avignon.jpg",
+    "img": "images/modern/demoiselles_avignon.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%A2%E3%83%B4%E3%82%A3%E3%83%8B%E3%83%A7%E3%83%B3%E3%81%AE%E5%A8%98%E3%81%9F%E3%81%A1%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%91%E3%83%96%E3%83%AD%E3%83%BB%E3%83%94%E3%82%AB%E3%82%BD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1907%3C/text%3E%3C/svg%3E"
   },
   {
@@ -514,7 +514,7 @@ const DEFAULT_DATA=[
     "genre": "近代美術",
     "year": "1937",
     "museum": "テート・モダン",
-    "img": "images/modern/weeping_woman.jpg",
+    "img": "images/modern/weeping_woman.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%B3%A3%E3%81%8F%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%91%E3%83%96%E3%83%AD%E3%83%BB%E3%83%94%E3%82%AB%E3%82%BD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1937%3C/text%3E%3C/svg%3E"
   },
   {
@@ -524,7 +524,7 @@ const DEFAULT_DATA=[
     "genre": "近代美術",
     "year": "1931",
     "museum": "ニューヨーク近代美術館",
-    "img": "images/modern/persistence_memory.jpg",
+    "img": "images/modern/persistence_memory.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%A8%98%E6%86%B6%E3%81%AE%E5%9B%BA%E5%9F%B7%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B5%E3%83%AB%E3%83%90%E3%83%89%E3%83%BC%E3%83%AB%E3%83%BB%E3%83%80%E3%83%AA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1931%3C/text%3E%3C/svg%3E"
   },
   {
@@ -534,7 +534,7 @@ const DEFAULT_DATA=[
     "genre": "近代美術",
     "year": "1910",
     "museum": "エルミタージュ美術館",
-    "img": "images/modern/dance.jpg",
+    "img": "images/modern/dance.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%80%E3%83%B3%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A2%E3%83%B3%E3%83%AA%E3%83%BB%E3%83%9E%E3%83%86%E3%82%A3%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1910%3C/text%3E%3C/svg%3E"
   },
   {
@@ -544,7 +544,7 @@ const DEFAULT_DATA=[
     "genre": "抽象画",
     "year": "1923",
     "museum": "グッゲンハイム美術館",
-    "img": "images/abstract/composition_viii.jpg",
+    "img": "images/abstract/composition_viii.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23e04040%22%20cx%3D%22120%22%20cy%3D%22100%22%20r%3D%2230%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%234040e0%22%20x%3D%22220%22%20y%3D%2280%22%20width%3D%2260%22%20height%3D%2260%22%20opacity%3D%22.2%22/%3E%3Cpolygon%20fill%3D%22%23e0c040%22%20points%3D%22200%2C180%20170%2C240%20230%2C240%22%20opacity%3D%22.25%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%B3%E3%83%B3%E3%83%9D%E3%82%B8%E3%82%B7%E3%83%A7%E3%83%B3VIII%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AF%E3%82%B7%E3%83%AA%E3%83%BC%E3%83%BB%E3%82%AB%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B9%E3%82%AD%E3%83%BC%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1923%3C/text%3E%3C/svg%3E"
   },
   {
@@ -554,7 +554,7 @@ const DEFAULT_DATA=[
     "genre": "抽象画",
     "year": "1930",
     "museum": "チューリッヒ美術館",
-    "img": "images/abstract/composition_ryb.jpg",
+    "img": "images/abstract/composition_ryb.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23e04040%22%20cx%3D%22120%22%20cy%3D%22100%22%20r%3D%2230%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%234040e0%22%20x%3D%22220%22%20y%3D%2280%22%20width%3D%2260%22%20height%3D%2260%22%20opacity%3D%22.2%22/%3E%3Cpolygon%20fill%3D%22%23e0c040%22%20points%3D%22200%2C180%20170%2C240%20230%2C240%22%20opacity%3D%22.25%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%B5%A4%E3%83%BB%E9%BB%84%E3%83%BB%E9%9D%92%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%82%B8%E3%82%B7%E3%83%A7%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%82%A8%E3%83%88%E3%83%BB%E3%83%A2%E3%83%B3%E3%83%89%E3%83%AA%E3%82%A2%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1930%3C/text%3E%3C/svg%3E"
   },
   {
@@ -564,7 +564,7 @@ const DEFAULT_DATA=[
     "genre": "抽象画",
     "year": "1942-1943",
     "museum": "ニューヨーク近代美術館",
-    "img": "images/abstract/broadway_boogie.jpg",
+    "img": "images/abstract/broadway_boogie.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23e04040%22%20cx%3D%22120%22%20cy%3D%22100%22%20r%3D%2230%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%234040e0%22%20x%3D%22220%22%20y%3D%2280%22%20width%3D%2260%22%20height%3D%2260%22%20opacity%3D%22.2%22/%3E%3Cpolygon%20fill%3D%22%23e0c040%22%20points%3D%22200%2C180%20170%2C240%20230%2C240%22%20opacity%3D%22.25%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%96%E3%83%AD%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%BB%E3%83%96%E3%82%AE%E3%82%A6%E3%82%AE%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%82%A8%E3%83%88%E3%83%BB%E3%83%A2%E3%83%B3%E3%83%89%E3%83%AA%E3%82%A2%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1942-1943%3C/text%3E%3C/svg%3E"
   },
   {
@@ -574,7 +574,7 @@ const DEFAULT_DATA=[
     "genre": "抽象画",
     "year": "1948",
     "museum": "個人蔵",
-    "img": "images/abstract/number_5.jpg",
+    "img": "images/abstract/number_5.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23e04040%22%20cx%3D%22120%22%20cy%3D%22100%22%20r%3D%2230%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%234040e0%22%20x%3D%22220%22%20y%3D%2280%22%20width%3D%2260%22%20height%3D%2260%22%20opacity%3D%22.2%22/%3E%3Cpolygon%20fill%3D%22%23e0c040%22%20points%3D%22200%2C180%20170%2C240%20230%2C240%22%20opacity%3D%22.25%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3ENo.5%2C%201948%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B8%E3%83%A3%E3%82%AF%E3%82%BD%E3%83%B3%E3%83%BB%E3%83%9D%E3%83%AD%E3%83%83%E3%82%AF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1948%3C/text%3E%3C/svg%3E"
   },
   {
@@ -584,7 +584,7 @@ const DEFAULT_DATA=[
     "genre": "写実主義",
     "year": "1857",
     "museum": "オルセー美術館",
-    "img": "images/realism/gleaners.jpg",
+    "img": "images/realism/gleaners.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8d0c0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a89878%22%20x%3D%2240%22%20y%3D%22200%22%20width%3D%22320%22%20height%3D%222%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a3020%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%90%BD%E7%A9%82%E6%8B%BE%E3%81%84%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a5040%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B8%E3%83%A3%E3%83%B3%EF%BC%9D%E3%83%95%E3%83%A9%E3%83%B3%E3%82%BD%E3%83%AF%E3%83%BB%E3%83%9F%E3%83%AC%E3%83%BC%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C48%2C32%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1857%3C/text%3E%3C/svg%3E"
   },
   {
@@ -594,7 +594,7 @@ const DEFAULT_DATA=[
     "genre": "写実主義",
     "year": "1857-1859",
     "museum": "オルセー美術館",
-    "img": "images/realism/angelus.jpg",
+    "img": "images/realism/angelus.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8d0c0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a89878%22%20x%3D%2240%22%20y%3D%22200%22%20width%3D%22320%22%20height%3D%222%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a3020%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%99%A9%E9%90%98%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a5040%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B8%E3%83%A3%E3%83%B3%EF%BC%9D%E3%83%95%E3%83%A9%E3%83%B3%E3%82%BD%E3%83%AF%E3%83%BB%E3%83%9F%E3%83%AC%E3%83%BC%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C48%2C32%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1857-1859%3C/text%3E%3C/svg%3E"
   },
   {
@@ -604,7 +604,7 @@ const DEFAULT_DATA=[
     "genre": "ロマン主義",
     "year": "1830",
     "museum": "ルーヴル美術館",
-    "img": "images/romanticism/liberty_leading.jpg",
+    "img": "images/romanticism/liberty_leading.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ro%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234a6a8a%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231a2a3a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ro%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Cpath%20d%3D%22M0%20220Q100%20180%20200%20210Q300%20240%20400%20200L400%20300L0%20300Z%22%20fill%3D%22%231a2a1a%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8d8e8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%B0%91%E8%A1%86%E3%82%92%E5%B0%8E%E3%81%8F%E8%87%AA%E7%94%B1%E3%81%AE%E5%A5%B3%E7%A5%9E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%238aa0b8%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A6%E3%82%B8%E3%82%A7%E3%83%BC%E3%83%8C%E3%83%BB%E3%83%89%E3%83%A9%E3%82%AF%E3%83%AD%E3%83%AF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1830%3C/text%3E%3C/svg%3E"
   },
   {
@@ -614,7 +614,7 @@ const DEFAULT_DATA=[
     "genre": "ロマン主義",
     "year": "1818",
     "museum": "ハンブルク美術館",
-    "img": "images/romanticism/wanderer_above_sea.jpg",
+    "img": "images/romanticism/wanderer_above_sea.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ro%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234a6a8a%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231a2a3a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ro%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Cpath%20d%3D%22M0%20220Q100%20180%20200%20210Q300%20240%20400%20200L400%20300L0%20300Z%22%20fill%3D%22%231a2a1a%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8d8e8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E9%9B%B2%E6%B5%B7%E3%81%AE%E4%B8%8A%E3%81%AE%E6%97%85%E4%BA%BA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%238aa0b8%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AB%E3%82%B9%E3%83%91%E3%83%BC%E3%83%BB%E3%83%80%E3%83%BC%E3%83%B4%E3%82%A3%E3%83%88%E3%83%BB%E3%83%95%E3%83%AA%E3%83%BC%E3%83%89%E3%83%AA%E3%83%92%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1818%3C/text%3E%3C/svg%3E"
   },
   {
@@ -624,7 +624,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1831頃",
     "museum": "メトロポリタン美術館ほか",
-    "img": "images/ukiyoe/great_wave.jpg",
+    "img": "images/ukiyoe/great_wave.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%A5%9E%E5%A5%88%E5%B7%9D%E6%B2%96%E6%B5%AA%E8%A3%8F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%91%9B%E9%A3%BE%E5%8C%97%E6%96%8E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1831%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -634,7 +634,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1831頃",
     "museum": "各地に所蔵",
-    "img": "images/ukiyoe/red_fuji.jpg",
+    "img": "images/ukiyoe/red_fuji.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%87%B1%E9%A2%A8%E5%BF%AB%E6%99%B4%EF%BC%88%E8%B5%A4%E5%AF%8C%E5%A3%AB%EF%BC%89%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%91%9B%E9%A3%BE%E5%8C%97%E6%96%8E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1831%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -644,7 +644,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1833-1834",
     "museum": "各地に所蔵",
-    "img": "images/ukiyoe/nihonbashi.jpg",
+    "img": "images/ukiyoe/nihonbashi.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9D%B1%E6%B5%B7%E9%81%93%E4%BA%94%E5%8D%81%E4%B8%89%E6%AC%A1%E3%83%BB%E6%97%A5%E6%9C%AC%E6%A9%8B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1833-1834%3C/text%3E%3C/svg%3E"
   },
   {
@@ -654,7 +654,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1690頃",
     "museum": "東京国立博物館",
-    "img": "images/ukiyoe/mikaeri_bijin.jpg",
+    "img": "images/ukiyoe/mikaeri_bijin.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%A6%8B%E8%BF%94%E3%82%8A%E7%BE%8E%E4%BA%BA%E5%9B%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%8F%B1%E5%B7%9D%E5%B8%AB%E5%AE%A3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1690%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -664,7 +664,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1790頃",
     "museum": "各地に所蔵",
-    "img": "images/ukiyoe/vidro_woman.jpg",
+    "img": "images/ukiyoe/vidro_woman.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%93%E3%83%BC%E3%83%89%E3%83%AD%E3%82%92%E5%90%B9%E3%81%8F%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E5%96%9C%E5%A4%9A%E5%B7%9D%E6%AD%8C%E9%BA%BF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1790%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -674,7 +674,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1794",
     "museum": "東京国立博物館",
-    "img": "images/ukiyoe/sharaku_otani.jpg",
+    "img": "images/ukiyoe/sharaku_otani.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E4%B8%89%E4%B8%96%E5%A4%A7%E8%B0%B7%E9%AC%BC%E6%AC%A1%E3%81%AE%E5%A5%B4%E6%B1%9F%E6%88%B8%E5%85%B5%E8%A1%9B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%9D%B1%E6%B4%B2%E6%96%8E%E5%86%99%E6%A5%BD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1794%3C/text%3E%3C/svg%3E"
   },
   {
@@ -684,7 +684,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1857",
     "museum": "ブルックリン美術館",
-    "img": "images/ukiyoe/kameido_ume.jpg",
+    "img": "images/ukiyoe/kameido_ume.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%90%8D%E6%89%80%E6%B1%9F%E6%88%B8%E7%99%BE%E6%99%AF%E3%83%BB%E4%BA%80%E6%88%B8%E6%A2%85%E5%B1%8B%E8%88%97%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1857%3C/text%3E%3C/svg%3E"
   },
   {
@@ -694,7 +694,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1831頃",
     "museum": "各地に所蔵",
-    "img": "images/ukiyoe/koshu_kajikazawa.jpg",
+    "img": "images/ukiyoe/koshu_kajikazawa.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%AF%8C%E5%B6%BD%E4%B8%89%E5%8D%81%E5%85%AD%E6%99%AF%E3%83%BB%E7%94%B2%E5%B7%9E%E7%9F%B3%E7%8F%AD%E6%BE%A4%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%91%9B%E9%A3%BE%E5%8C%97%E6%96%8E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1831%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -704,7 +704,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1833-1834",
     "museum": "各地に所蔵",
-    "img": "images/ukiyoe/kanbara.jpg",
+    "img": "images/ukiyoe/kanbara.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9D%B1%E6%B5%B7%E9%81%93%E4%BA%94%E5%8D%81%E4%B8%89%E6%AC%A1%E3%83%BB%E8%92%B2%E5%8E%9F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1833-1834%3C/text%3E%3C/svg%3E"
   },
   {
@@ -714,7 +714,7 @@ const DEFAULT_DATA=[
     "genre": "浮世絵",
     "year": "1790頃",
     "museum": "各地に所蔵",
-    "img": "images/ukiyoe/poppin_woman.jpg",
+    "img": "images/ukiyoe/poppin_woman.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%9D%E3%83%83%E3%83%94%E3%83%B3%E3%82%92%E5%90%B9%E3%81%8F%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E5%96%9C%E5%A4%9A%E5%B7%9D%E6%AD%8C%E9%BA%BF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1790%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -724,7 +724,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "17世紀前半",
     "museum": "建仁寺",
-    "img": "images/nihonga/fujin_raijin.jpg",
+    "img": "images/nihonga/fujin_raijin.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E9%A2%A8%E7%A5%9E%E9%9B%B7%E7%A5%9E%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E4%BF%B5%E5%B1%8B%E5%AE%97%E9%81%94%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E17%E4%B8%96%E7%B4%80%E5%89%8D%E5%8D%8A%3C/text%3E%3C/svg%3E"
   },
   {
@@ -734,7 +734,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "1701頃",
     "museum": "根津美術館",
-    "img": "images/nihonga/kakitsubata.jpg",
+    "img": "images/nihonga/kakitsubata.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%87%95%E5%AD%90%E8%8A%B1%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E5%B0%BE%E5%BD%A2%E5%85%89%E7%90%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1701%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -744,7 +744,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "18世紀初頭",
     "museum": "MOA美術館",
-    "img": "images/nihonga/kohaku_ume.jpg",
+    "img": "images/nihonga/kohaku_ume.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%B4%85%E7%99%BD%E6%A2%85%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E5%B0%BE%E5%BD%A2%E5%85%89%E7%90%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E18%E4%B8%96%E7%B4%80%E5%88%9D%E9%A0%AD%3C/text%3E%3C/svg%3E"
   },
   {
@@ -754,7 +754,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "16世紀末",
     "museum": "東京国立博物館",
-    "img": "images/nihonga/shorin_zu.jpg",
+    "img": "images/nihonga/shorin_zu.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9D%BE%E6%9E%97%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E9%95%B7%E8%B0%B7%E5%B7%9D%E7%AD%89%E4%BC%AF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E16%E4%B8%96%E7%B4%80%E6%9C%AB%3C/text%3E%3C/svg%3E"
   },
   {
@@ -764,7 +764,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "1565頃",
     "museum": "上杉博物館",
-    "img": "images/nihonga/rakuchu_rakugai.jpg",
+    "img": "images/nihonga/rakuchu_rakugai.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%B4%9B%E4%B8%AD%E6%B4%9B%E5%A4%96%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E7%8B%A9%E9%87%8E%E6%B0%B8%E5%BE%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1565%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -774,7 +774,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "16世紀後半",
     "museum": "宮内庁三の丸尚蔵館",
-    "img": "images/nihonga/karashishi.jpg",
+    "img": "images/nihonga/karashishi.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%94%90%E7%8D%85%E5%AD%90%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E7%8B%A9%E9%87%8E%E6%B0%B8%E5%BE%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E16%E4%B8%96%E7%B4%80%E5%BE%8C%E5%8D%8A%3C/text%3E%3C/svg%3E"
   },
   {
@@ -784,7 +784,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "1897",
     "museum": "東京国立博物館",
-    "img": "images/nihonga/kohan.jpg",
+    "img": "images/nihonga/kohan.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%B9%96%E7%95%94%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E9%BB%92%E7%94%B0%E6%B8%85%E8%BC%9D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1897%3C/text%3E%3C/svg%3E"
   },
   {
@@ -794,7 +794,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "1877頃",
     "museum": "東京藝術大学",
-    "img": "images/nihonga/sake.jpg",
+    "img": "images/nihonga/sake.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E9%AE%AD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E9%AB%98%E6%A9%8B%E7%94%B1%E4%B8%80%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1877%E9%A0%83%3C/text%3E%3C/svg%3E"
   },
   {
@@ -804,7 +804,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "1888",
     "museum": "東京藝術大学",
-    "img": "images/nihonga/hibo_kannon.jpg",
+    "img": "images/nihonga/hibo_kannon.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%82%B2%E6%AF%8D%E8%A6%B3%E9%9F%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E7%8B%A9%E9%87%8E%E8%8A%B3%E5%B4%96%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1888%3C/text%3E%3C/svg%3E"
   },
   {
@@ -814,7 +814,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "1897",
     "museum": "東京国立博物館",
-    "img": "images/nihonga/muga.jpg",
+    "img": "images/nihonga/muga.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%84%A1%E6%88%91%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%A8%AA%E5%B1%B1%E5%A4%A7%E8%A6%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1897%3C/text%3E%3C/svg%3E"
   },
   {
@@ -824,7 +824,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "1936",
     "museum": "東京藝術大学",
-    "img": "images/nihonga/jo_no_mai.jpg",
+    "img": "images/nihonga/jo_no_mai.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%BA%8F%E3%81%AE%E8%88%9E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E4%B8%8A%E6%9D%91%E6%9D%BE%E5%9C%92%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1936%3C/text%3E%3C/svg%3E"
   },
   {
@@ -834,7 +834,7 @@ const DEFAULT_DATA=[
     "genre": "日本画",
     "year": "1910",
     "museum": "永青文庫",
-    "img": "images/nihonga/kuroki_neko.jpg",
+    "img": "images/nihonga/kuroki_neko.png",
     "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E9%BB%92%E3%81%8D%E7%8C%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%8F%B1%E7%94%B0%E6%98%A5%E8%8D%89%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1910%3C/text%3E%3C/svg%3E"
   }
 ];
