@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art Museum Quiz — 世界の名画65選</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f7f3ee;--bg2:#eee8df;--sf:#fff;--sf2:#f0ebe3;--fr:#8b7355;--frd:#5a4a32;--frl:#a89070;--gold:#b8960c;--goldl:#d4af37;--goldp:#f5ecd0;--ac:#8b2e2e;--grn:#2e6b45;--grnl:#e8f0ec;--txt:#2a2118;--txt2:#5a4e40;--txt3:#8a7e70;--bdr:rgba(139,115,85,.15);--r:8px;--sh:0 2px 16px rgba(42,33,24,.08)}
+body{font-family:'Noto Sans JP','Cormorant Garamond',serif;background:var(--bg);color:var(--txt);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='60' height='60' filter='url(%23n)' opacity='.015'/%3E%3C/svg%3E");pointer-events:none;z-index:-1}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond','Noto Sans JP',serif}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:64px;background:var(--sf);border-bottom:1px solid var(--bdr);position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(42,33,24,.04)}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--frd);letter-spacing:1px}
+.nav-tabs{display:flex;gap:2px;background:var(--bg2);padding:3px;border-radius:8px}
+.nav-tab{padding:8px 22px;border:none;background:0;color:var(--txt3);font-family:inherit;font-size:.85rem;font-weight:500;border-radius:6px;cursor:pointer;transition:.25s}
+.nav-tab.active{background:var(--sf);color:var(--frd);box-shadow:0 1px 4px rgba(42,33,24,.1)}
+.badge{display:inline-flex;align-items:center;justify-content:center;background:var(--gold);color:#fff;font-size:.7rem;font-weight:700;min-width:20px;height:20px;border-radius:10px;margin-left:6px;padding:0 5px}
+.page{display:none;padding:32px 24px;max-width:960px;margin:0 auto}.page.active{display:block;animation:fu .4s ease}
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.qh{text-align:center;margin-bottom:28px}.qh h2{font-size:2rem;font-weight:700;color:var(--frd);letter-spacing:1px}.qh .sub{color:var(--txt3);font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;margin-top:2px}
+.ms{display:inline-flex;gap:3px;background:var(--bg2);padding:4px;border-radius:8px;margin-top:16px}
+.mb{padding:9px 18px;border:none;background:0;color:var(--txt3);font-family:inherit;font-weight:500;font-size:.85rem;border-radius:6px;cursor:pointer;transition:.25s}
+.mb.active{background:var(--frd);color:#fff;box-shadow:0 2px 8px rgba(90,74,50,.25)}
+.genre-filter{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px}
+.gf-btn{padding:5px 14px;border:1.5px solid var(--bdr);background:var(--sf);color:var(--txt2);font-family:inherit;font-size:.78rem;font-weight:500;border-radius:20px;cursor:pointer;transition:.2s}
+.gf-btn.active{background:var(--frd);color:#fff;border-color:var(--frd)}
+.gf-btn:hover:not(.active){border-color:var(--fr);background:var(--goldp)}
+.sb{display:flex;align-items:center;justify-content:center;gap:32px;margin-bottom:20px;padding:12px 24px;background:var(--sf2);border-radius:var(--r)}
+.sb .item{display:flex;align-items:center;gap:6px}.sb .l{color:var(--txt3);font-size:.85rem}.sb .v{font-weight:700;font-size:1.15rem;font-family:'Cormorant Garamond',serif}.sb .v.c{color:var(--grn)}.sb .v.w{color:var(--ac)}
+.pt{width:100%;height:4px;background:var(--bg2);border-radius:2px;margin-bottom:28px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,var(--gold),var(--goldl));border-radius:2px;transition:width .4s}
+.museum-frame{background:var(--sf);border:3px solid var(--fr);border-radius:4px;box-shadow:inset 0 0 0 6px var(--sf),inset 0 0 0 8px var(--frl),var(--sh),0 8px 32px rgba(90,74,50,.12);position:relative;overflow:hidden;padding:20px;text-align:center;margin-bottom:28px}
+.museum-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15) 0%,transparent 50%,rgba(0,0,0,.03) 100%);pointer-events:none;z-index:1}
+.museum-frame img{max-width:100%;max-height:380px;border-radius:2px;object-fit:contain;display:block;margin:0 auto}
+.ch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.cb{padding:16px 18px;border:2px solid var(--bdr);background:var(--sf);color:var(--txt);font-family:inherit;font-size:.92rem;font-weight:500;border-radius:var(--r);cursor:pointer;transition:.2s;text-align:center;line-height:1.4}
+.cb:hover:not(:disabled){border-color:var(--fr);background:var(--goldp);transform:translateY(-2px);box-shadow:var(--sh)}
+.cb.ok{border-color:var(--grn)!important;background:var(--grnl)!important;color:var(--grn)!important;font-weight:700}
+.cb.ng{border-color:var(--ac)!important;background:#fdf0f0!important;color:var(--ac)!important}
+.cb:disabled{cursor:default;opacity:.65}
+.fb{text-align:center;padding:14px 20px;border-radius:var(--r);margin-bottom:16px;font-weight:600;font-size:.95rem;display:none}
+.fb.show{display:block;animation:fu .3s}.fb.fbok{background:var(--grnl);color:var(--grn);border:1px solid rgba(46,107,69,.15)}.fb.fbng{background:#fdf0f0;color:var(--ac);border:1px solid rgba(139,46,46,.12)}
+.fb .detail{font-weight:400;font-size:.85rem;margin-top:6px;color:var(--txt2)}
+.btn{display:block;width:100%;max-width:300px;margin:0 auto;padding:13px 28px;border:none;background:var(--frd);color:#fff;font-family:'Cormorant Garamond','Noto Sans JP',serif;font-size:1.05rem;font-weight:600;letter-spacing:1px;border-radius:var(--r);cursor:pointer;transition:.25s;box-shadow:0 2px 12px rgba(90,74,50,.2)}
+.btn:hover{background:var(--fr);transform:translateY(-2px)}.btn.gold{background:var(--gold)}.btn.gold:hover{background:var(--goldl)}
+.rc{text-align:center;padding:48px 32px;background:var(--sf);border-radius:var(--r);border:1px solid var(--bdr);box-shadow:var(--sh)}
+.rc .em{font-size:3.5rem;margin-bottom:12px}.rc h2{font-size:1.8rem;color:var(--frd);margin-bottom:8px}
+.rc .rs{font-size:2.8rem;font-weight:700;color:var(--gold);margin:16px 0;font-family:'Cormorant Garamond',serif}
+.rc p{color:var(--txt3);margin-bottom:28px;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.05rem}
+/* Dashboard */
+.dh{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}.dh h2{font-size:1.5rem;font-weight:700;color:var(--frd)}
+.add-btn{padding:10px 24px;border:none;background:var(--frd);color:#fff;font-family:inherit;font-size:.88rem;font-weight:600;border-radius:var(--r);cursor:pointer}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.stat{background:var(--sf);border:1px solid var(--bdr);border-radius:var(--r);padding:12px 18px;flex:1;min-width:100px;text-align:center}
+.stat .num{font-size:1.6rem;font-weight:700;color:var(--gold);font-family:'Cormorant Garamond',serif}.stat .lbl{font-size:.78rem;color:var(--txt3);margin-top:2px}
+.dash-filter{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.pc{background:var(--sf);border-radius:var(--r);overflow:hidden;border:1px solid var(--bdr);transition:.3s;position:relative}
+.pc:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(42,33,24,.1)}
+.pc img{width:100%;height:150px;object-fit:cover}.pc .inf{padding:10px 14px;border-top:1px solid var(--bdr)}
+.pc .inf .t{font-weight:600;font-size:.85rem;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc .inf .a{color:var(--txt3);font-size:.78rem}
+.pc .inf .g{display:inline-block;margin-top:5px;padding:2px 8px;background:var(--goldp);color:var(--gold);font-size:.68rem;font-weight:600;border-radius:4px}
+.pc .acts{position:absolute;top:6px;right:6px;display:flex;gap:3px;opacity:0;transition:.2s}
+.pc:hover .acts{opacity:1}
+.pc .acts button{width:28px;height:28px;border:none;border-radius:6px;cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.9)}
+.edb{color:var(--frd)}.dlb{color:var(--ac)}
+/* Modal */
+.mo{display:none;position:fixed;inset:0;background:rgba(42,33,24,.5);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;padding:24px}
+.mo.open{display:flex;animation:fu .25s}
+.md{background:var(--sf);border-radius:12px;padding:32px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;border:1px solid var(--bdr)}
+.md h3{font-size:1.3rem;font-weight:700;color:var(--frd);margin-bottom:24px;font-family:'Cormorant Garamond',serif}
+.fg{margin-bottom:16px}.fg label{display:block;font-size:.8rem;font-weight:500;color:var(--txt3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.3px}
+.fg input,.fg select{width:100%;padding:10px 14px;border:1.5px solid var(--bdr);background:var(--bg);color:var(--txt);font-family:inherit;font-size:.9rem;border-radius:var(--r);outline:none;transition:.2s}
+.fg input:focus,.fg select:focus{border-color:var(--fr)}
+.ua{border:2px dashed var(--bdr);border-radius:var(--r);padding:28px;text-align:center;cursor:pointer;transition:.2s;background:var(--bg)}
+.ua:hover{border-color:var(--fr)}.ua input{display:none}.ua .ui{font-size:2rem;margin-bottom:6px;opacity:.5}.ua .ut{color:var(--txt3);font-size:.82rem}
+.ua img{max-width:100%;max-height:160px;border-radius:4px;object-fit:contain}
+.modal-actions{display:flex;gap:10px;margin-top:24px}
+.modal-actions button{flex:1;padding:11px;border:none;font-family:inherit;font-size:.9rem;font-weight:600;border-radius:var(--r);cursor:pointer}
+.svb{background:var(--frd);color:#fff}.cnb{background:var(--bg2);color:var(--txt2)}
+.coll-progress{margin-bottom:24px;padding:20px 24px;background:var(--sf);border:1px solid var(--bdr);border-radius:var(--r);box-shadow:var(--sh)}
+.coll-progress .cp-title{font-size:.9rem;font-weight:600;color:var(--frd);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.cp-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.cp-bar-label{font-size:.78rem;color:var(--txt3);width:56px;text-align:right;flex-shrink:0}
+.cp-bar{flex:1;height:8px;background:var(--bg2);border-radius:4px;overflow:hidden}
+.cp-bar-fill{height:100%;border-radius:4px;transition:width .5s ease}
+.cp-bar-fill.title-bar{background:linear-gradient(90deg,#b8960c,#d4af37)}
+.cp-bar-fill.artist-bar{background:linear-gradient(90deg,#2e6b45,#4a9a65)}
+.cp-bar-fill.genre-bar{background:linear-gradient(90deg,#5a4a8a,#7a6aaa)}
+.cp-bar-count{font-size:.75rem;color:var(--txt3);width:40px;flex-shrink:0}
+.coll-stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.pc .coll-badges{position:absolute;bottom:6px;right:6px;display:flex;gap:3px}
+.pc .coll-badges .cb-dot{width:20px;height:20px;border-radius:50%;font-size:.65rem;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.cb-dot.earned{opacity:1}.cb-dot.unearned{opacity:.25}
+.cb-dot.t-dot{background:var(--gold)}.cb-dot.a-dot{background:var(--grn)}.cb-dot.g-dot{background:#5a4a8a}
+.pc.collected{border:2px solid var(--gold);box-shadow:0 0 0 1px var(--goldp),var(--sh)}
+.pc.collected::after{content:"✦";position:absolute;top:6px;left:8px;font-size:1rem;color:var(--gold);text-shadow:0 1px 2px rgba(0,0,0,.2)}
+.genre-checks{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.gc-label{display:flex;align-items:center;gap:5px;padding:6px 14px;border:1.5px solid var(--bdr);background:var(--sf);color:var(--txt2);font-size:.78rem;font-weight:500;border-radius:20px;cursor:pointer;transition:.2s;user-select:none}
+.gc-label:hover{border-color:var(--fr);background:var(--goldp)}
+.gc-label input{display:none}
+.gc-label.checked{background:var(--frd);color:#fff;border-color:var(--frd)}
+.gc-count{font-size:.7rem;opacity:.7;margin-left:2px}
+@media(max-width:600px){.nav{flex-direction:column;gap:10px;height:auto;padding:12px 16px}.ch{grid-template-columns:1fr}.cg{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-brand">🏛️ Art Museum Quiz</div><div class="nav-tabs"><button class="nav-tab active" data-page="quiz">Quiz</button><button class="nav-tab" data-page="collection">マイコレクション<span class="badge" id="collBadge" style="background:var(--grn)">0</span></button><button class="nav-tab" data-page="dashboard">管理<span class="badge" id="countBadge">0</span></button></div></nav>
+<div class="page active" id="page-quiz">
+<div class="qh"><h2>Gallery Quiz</h2><div class="sub">— 世界の名画65選 —</div>
+<div class="ms"><button class="mb active" data-mode="title">作品名</button><button class="mb" data-mode="artist">作者</button><button class="mb" data-mode="genre">ジャンル</button></div>
+<div class="genre-filter" id="genreFilter"></div>
+<div id="genreSelectArea" style="display:none;margin-top:18px">
+<div style="font-size:.82rem;color:var(--txt3);margin-bottom:8px;font-weight:500">出題ジャンルを4つ以上選んでください：</div>
+<div class="genre-checks" id="genreChecks"></div>
+<div style="margin-top:8px;display:flex;gap:8px;justify-content:center">
+<button class="gf-btn" onclick="toggleAllGenres(true)" style="font-size:.75rem">すべて選択</button>
+<button class="gf-btn" onclick="toggleAllGenres(false)" style="font-size:.75rem">すべて解除</button>
+</div>
+</div></div>
+<div id="quizIntro"><div id="readyMsg" style="text-align:center;padding:40px 0"><p style="font-size:1rem;color:var(--txt3);margin-bottom:24px;font-family:'Cormorant Garamond',serif;font-size:1.1rem">所蔵作品: <span id="readyCount" style="color:var(--gold);font-weight:700">0</span> 点</p><button class="btn gold" onclick="startQuiz()">Start Quiz</button></div></div>
+<div id="quizArea" style="display:none">
+<div class="sb"><div class="item"><span class="l">Question</span><span class="v" id="qNum">1/10</span></div><div class="item"><span class="l">Correct</span><span class="v c" id="correctCount">0</span></div><div class="item"><span class="l">Wrong</span><span class="v w" id="wrongCount">0</span></div></div>
+<div class="pt"><div class="pf" id="progressFill" style="width:0%"></div></div>
+<div class="museum-frame"><img id="quizImg" src="" alt="painting"></div>
+<div class="fb" id="feedback"></div>
+<div class="ch" id="choices"></div>
+<button class="btn" id="nextBtn" style="display:none" onclick="nextQuestion()">Next →</button></div>
+<div id="quizResult" style="display:none"><div class="rc"><div class="em" id="resultEmoji">🏆</div><h2 id="resultTitle"></h2><div class="rs" id="resultScore"></div><p id="resultMsg"></p><button class="btn gold" onclick="startQuiz()">Try Again</button></div></div>
+</div>
+
+<div class="page" id="page-collection">
+<div class="qh" style="margin-bottom:20px"><h2>My Collection</h2><div class="sub">— 3つのクイズすべてに正解した作品 —</div></div>
+<div class="coll-progress" id="collProgress"></div>
+<div class="coll-stats" id="collStats"></div>
+<div class="dash-filter" id="collFilter"></div>
+<div class="cg" id="collGrid"></div>
+<div class="es" id="collEmpty"><div class="icon">🏛️</div><h3>まだコレクションがありません</h3><p>各モード（作品名・作者・ジャンル）で正解すると<br>3つ揃った作品がコレクションに加わります</p></div>
+</div>
+<div class="page" id="page-dashboard">
+<div class="dh"><h2>Collection</h2><button class="add-btn" onclick="openModal()">＋ 作品を追加</button></div>
+<div class="stats" id="statsBar"></div>
+<div class="dash-filter" id="dashFilter"></div>
+<div class="cg" id="cardGrid"></div></div>
+<div class="mo" id="modalOverlay"><div class="md"><h3 id="modalTitle">Add Artwork</h3>
+<div class="fg"><label>作品名 *</label><input type="text" id="inputTitle" placeholder="例: モナ・リザ"></div>
+<div class="fg"><label>作者名 *</label><input type="text" id="inputArtist" placeholder="例: レオナルド・ダ・ヴィンチ"></div>
+<div class="fg"><label>ジャンル *</label><select id="inputGenre"><option value="">選択</option></select></div>
+<div class="fg"><label>制作年</label><input type="text" id="inputYear" placeholder="例: 1503"></div>
+<div class="fg"><label>所蔵美術館</label><input type="text" id="inputMuseum" placeholder="例: ルーヴル美術館"></div>
+<div class="fg"><label>画像</label><div class="ua" id="uploadArea"><input type="file" id="fileInput" accept="image/*"><div id="uploadPlaceholder"><div class="ui">🖼️</div><div class="ut">クリックで画像をアップロード</div></div><img id="previewImg" style="display:none"></div></div>
+<div class="fg"><label>画像パス（GitHub用）</label><input type="text" id="inputImgPath" placeholder="例: images/renaissance/mona_lisa.jpg"></div>
+<div class="modal-actions"><button class="cnb" onclick="closeModal()">Cancel</button><button class="svb" onclick="savePainting()">Save</button></div></div></div>
+<script>
+const GENRES=["ルネサンス","バロック","印象派","後期印象派","表現主義","近代美術","抽象画","写実主義","ロマン主義","浮世絵","日本画","その他"];
+const DEFAULT_DATA=[
+  {
+    "id": "r01",
+    "title": "モナ・リザ",
+    "artist": "レオナルド・ダ・ヴィンチ",
+    "genre": "ルネサンス",
+    "year": "1503-1519",
+    "museum": "ルーヴル美術館",
+    "img": "images/renaissance/mona_lisa.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%A2%E3%83%8A%E3%83%BB%E3%83%AA%E3%82%B6%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%82%AA%E3%83%8A%E3%83%AB%E3%83%89%E3%83%BB%E3%83%80%E3%83%BB%E3%83%B4%E3%82%A3%E3%83%B3%E3%83%81%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1503-1519%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "r02",
+    "title": "最後の晩餐",
+    "artist": "レオナルド・ダ・ヴィンチ",
+    "genre": "ルネサンス",
+    "year": "1495-1498",
+    "museum": "サンタ・マリア・デッレ・グラツィエ教会",
+    "img": "images/renaissance/last_supper.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9C%80%E5%BE%8C%E3%81%AE%E6%99%A9%E9%A4%90%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%82%AA%E3%83%8A%E3%83%AB%E3%83%89%E3%83%BB%E3%83%80%E3%83%BB%E3%83%B4%E3%82%A3%E3%83%B3%E3%83%81%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1495-1498%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "r03",
+    "title": "受胎告知",
+    "artist": "レオナルド・ダ・ヴィンチ",
+    "genre": "ルネサンス",
+    "year": "1472-1475",
+    "museum": "ウフィツィ美術館",
+    "img": "images/renaissance/annunciation.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%8F%97%E8%83%8E%E5%91%8A%E7%9F%A5%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%82%AA%E3%83%8A%E3%83%AB%E3%83%89%E3%83%BB%E3%83%80%E3%83%BB%E3%83%B4%E3%82%A3%E3%83%B3%E3%83%81%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1472-1475%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "r04",
+    "title": "ヴィーナスの誕生",
+    "artist": "サンドロ・ボッティチェリ",
+    "genre": "ルネサンス",
+    "year": "1485頃",
+    "museum": "ウフィツィ美術館",
+    "img": "images/renaissance/birth_of_venus.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%B4%E3%82%A3%E3%83%BC%E3%83%8A%E3%82%B9%E3%81%AE%E8%AA%95%E7%94%9F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B5%E3%83%B3%E3%83%89%E3%83%AD%E3%83%BB%E3%83%9C%E3%83%83%E3%83%86%E3%82%A3%E3%83%81%E3%82%A7%E3%83%AA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1485%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "r05",
+    "title": "春（プリマヴェーラ）",
+    "artist": "サンドロ・ボッティチェリ",
+    "genre": "ルネサンス",
+    "year": "1482頃",
+    "museum": "ウフィツィ美術館",
+    "img": "images/renaissance/primavera.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%98%A5%EF%BC%88%E3%83%97%E3%83%AA%E3%83%9E%E3%83%B4%E3%82%A7%E3%83%BC%E3%83%A9%EF%BC%89%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B5%E3%83%B3%E3%83%89%E3%83%AD%E3%83%BB%E3%83%9C%E3%83%83%E3%83%86%E3%82%A3%E3%83%81%E3%82%A7%E3%83%AA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1482%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "r06",
+    "title": "アダムの創造",
+    "artist": "ミケランジェロ",
+    "genre": "ルネサンス",
+    "year": "1508-1512",
+    "museum": "システィーナ礼拝堂",
+    "img": "images/renaissance/creation_of_adam.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%A2%E3%83%80%E3%83%A0%E3%81%AE%E5%89%B5%E9%80%A0%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9F%E3%82%B1%E3%83%A9%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1508-1512%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "r07",
+    "title": "最後の審判",
+    "artist": "ミケランジェロ",
+    "genre": "ルネサンス",
+    "year": "1536-1541",
+    "museum": "システィーナ礼拝堂",
+    "img": "images/renaissance/last_judgment.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9C%80%E5%BE%8C%E3%81%AE%E5%AF%A9%E5%88%A4%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9F%E3%82%B1%E3%83%A9%E3%83%B3%E3%82%B8%E3%82%A7%E3%83%AD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1536-1541%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "r08",
+    "title": "アテナイの学堂",
+    "artist": "ラファエロ・サンティ",
+    "genre": "ルネサンス",
+    "year": "1509-1511",
+    "museum": "バチカン宮殿",
+    "img": "images/renaissance/school_of_athens.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22bg%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238B7355%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%235a4a32%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23bg%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23f5ecd0%22%20x%3D%2230%22%20y%3D%2220%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%223%22%20opacity%3D%22.15%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f5ecd0%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%A2%E3%83%86%E3%83%8A%E3%82%A4%E3%81%AE%E5%AD%A6%E5%A0%82%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23d4af37%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%A9%E3%83%95%E3%82%A1%E3%82%A8%E3%83%AD%E3%83%BB%E3%82%B5%E3%83%B3%E3%83%86%E3%82%A3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22270%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1509-1511%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "b01",
+    "title": "真珠の耳飾りの少女",
+    "artist": "ヨハネス・フェルメール",
+    "genre": "バロック",
+    "year": "1665頃",
+    "museum": "マウリッツハイス美術館",
+    "img": "images/baroque/girl_pearl_earring.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%9C%9F%E7%8F%A0%E3%81%AE%E8%80%B3%E9%A3%BE%E3%82%8A%E3%81%AE%E5%B0%91%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%A8%E3%83%8F%E3%83%8D%E3%82%B9%E3%83%BB%E3%83%95%E3%82%A7%E3%83%AB%E3%83%A1%E3%83%BC%E3%83%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1665%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "b02",
+    "title": "牛乳を注ぐ女",
+    "artist": "ヨハネス・フェルメール",
+    "genre": "バロック",
+    "year": "1658頃",
+    "museum": "アムステルダム国立美術館",
+    "img": "images/baroque/milkmaid.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%89%9B%E4%B9%B3%E3%82%92%E6%B3%A8%E3%81%90%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%A8%E3%83%8F%E3%83%8D%E3%82%B9%E3%83%BB%E3%83%95%E3%82%A7%E3%83%AB%E3%83%A1%E3%83%BC%E3%83%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1658%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "b03",
+    "title": "夜警",
+    "artist": "レンブラント・ファン・レイン",
+    "genre": "バロック",
+    "year": "1642",
+    "museum": "アムステルダム国立美術館",
+    "img": "images/baroque/night_watch.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%A4%9C%E8%AD%A6%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%83%B3%E3%83%96%E3%83%A9%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%83%AC%E3%82%A4%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1642%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "b04",
+    "title": "自画像（1659年）",
+    "artist": "レンブラント・ファン・レイン",
+    "genre": "バロック",
+    "year": "1659",
+    "museum": "ナショナル・ギャラリー",
+    "img": "images/baroque/rembrandt_self.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%87%AA%E7%94%BB%E5%83%8F%EF%BC%881659%E5%B9%B4%EF%BC%89%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AC%E3%83%B3%E3%83%96%E3%83%A9%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%83%AC%E3%82%A4%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1659%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "b05",
+    "title": "メデューサの首",
+    "artist": "カラヴァッジオ",
+    "genre": "バロック",
+    "year": "1597頃",
+    "museum": "ウフィツィ美術館",
+    "img": "images/baroque/medusa.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%A1%E3%83%87%E3%83%A5%E3%83%BC%E3%82%B5%E3%81%AE%E9%A6%96%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AB%E3%83%A9%E3%83%B4%E3%82%A1%E3%83%83%E3%82%B8%E3%82%AA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1597%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "b06",
+    "title": "キリスト降架",
+    "artist": "ピーテル・パウル・ルーベンス",
+    "genre": "バロック",
+    "year": "1612-1614",
+    "museum": "アントワープ大聖堂",
+    "img": "images/baroque/descent_cross.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%AD%E3%83%AA%E3%82%B9%E3%83%88%E9%99%8D%E6%9E%B6%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%83%BC%E3%83%86%E3%83%AB%E3%83%BB%E3%83%91%E3%82%A6%E3%83%AB%E3%83%BB%E3%83%AB%E3%83%BC%E3%83%99%E3%83%B3%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1612-1614%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "b07",
+    "title": "ラス・メニーナス",
+    "artist": "ディエゴ・ベラスケス",
+    "genre": "バロック",
+    "year": "1656",
+    "museum": "プラド美術館",
+    "img": "images/baroque/las_meninas.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%231a1a2e%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23d4af37%22%20cx%3D%22200%22%20cy%3D%22130%22%20r%3D%2260%22%20opacity%3D%22.08%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%2220%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%23d4af37%22%20x%3D%2260%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%221%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%A9%E3%82%B9%E3%83%BB%E3%83%A1%E3%83%8B%E3%83%BC%E3%83%8A%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a89070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%87%E3%82%A3%E3%82%A8%E3%82%B4%E3%83%BB%E3%83%99%E3%83%A9%E3%82%B9%E3%82%B1%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1656%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i01",
+    "title": "睡蓮",
+    "artist": "クロード・モネ",
+    "genre": "印象派",
+    "year": "1906",
+    "museum": "シカゴ美術館",
+    "img": "images/impressionism/water_lilies.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%9D%A1%E8%93%AE%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%89%E3%83%BB%E3%83%A2%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1906%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i02",
+    "title": "印象・日の出",
+    "artist": "クロード・モネ",
+    "genre": "印象派",
+    "year": "1872",
+    "museum": "マルモッタン・モネ美術館",
+    "img": "images/impressionism/impression_sunrise.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%8D%B0%E8%B1%A1%E3%83%BB%E6%97%A5%E3%81%AE%E5%87%BA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%89%E3%83%BB%E3%83%A2%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1872%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i03",
+    "title": "散歩、日傘をさす女性",
+    "artist": "クロード・モネ",
+    "genre": "印象派",
+    "year": "1875",
+    "museum": "ナショナル・ギャラリー",
+    "img": "images/impressionism/woman_parasol.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%95%A3%E6%AD%A9%E3%80%81%E6%97%A5%E5%82%98%E3%82%92%E3%81%95%E3%81%99%E5%A5%B3%E6%80%A7%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AF%E3%83%AD%E3%83%BC%E3%83%89%E3%83%BB%E3%83%A2%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1875%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i04",
+    "title": "ムーラン・ド・ラ・ギャレットの舞踏会",
+    "artist": "ピエール＝オーギュスト・ルノワール",
+    "genre": "印象派",
+    "year": "1876",
+    "museum": "オルセー美術館",
+    "img": "images/impressionism/moulin_galette.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%A0%E3%83%BC%E3%83%A9%E3%83%B3%E3%83%BB%E3%83%89%E3%83%BB%E3%83%A9%E3%83%BB%E3%82%AE%E3%83%A3%E3%83%AC%E3%83%83%E3%83%88%E3%81%AE%E8%88%9E%E8%B8%8F%E4%BC%9A%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%EF%BC%9D%E3%82%AA%E3%83%BC%E3%82%AE%E3%83%A5%E3%82%B9%E3%83%88%E3%83%BB%E3%83%AB%E3%83%8E%E3%83%AF%E3%83%BC%E3%83%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1876%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i05",
+    "title": "舟遊びの昼食",
+    "artist": "ピエール＝オーギュスト・ルノワール",
+    "genre": "印象派",
+    "year": "1880-1881",
+    "museum": "フィリップス・コレクション",
+    "img": "images/impressionism/luncheon_boating.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%88%9F%E9%81%8A%E3%81%B3%E3%81%AE%E6%98%BC%E9%A3%9F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%82%A8%E3%83%BC%E3%83%AB%EF%BC%9D%E3%82%AA%E3%83%BC%E3%82%AE%E3%83%A5%E3%82%B9%E3%83%88%E3%83%BB%E3%83%AB%E3%83%8E%E3%83%AF%E3%83%BC%E3%83%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1880-1881%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i06",
+    "title": "バレエの稽古",
+    "artist": "エドガー・ドガ",
+    "genre": "印象派",
+    "year": "1874",
+    "museum": "メトロポリタン美術館",
+    "img": "images/impressionism/dance_class.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%90%E3%83%AC%E3%82%A8%E3%81%AE%E7%A8%BD%E5%8F%A4%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A8%E3%83%89%E3%82%AC%E3%83%BC%E3%83%BB%E3%83%89%E3%82%AC%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1874%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i07",
+    "title": "草上の昼食",
+    "artist": "エドゥアール・マネ",
+    "genre": "印象派",
+    "year": "1863",
+    "museum": "オルセー美術館",
+    "img": "images/impressionism/luncheon_grass.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%8D%89%E4%B8%8A%E3%81%AE%E6%98%BC%E9%A3%9F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A8%E3%83%89%E3%82%A5%E3%82%A2%E3%83%BC%E3%83%AB%E3%83%BB%E3%83%9E%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1863%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i08",
+    "title": "笛を吹く少年",
+    "artist": "エドゥアール・マネ",
+    "genre": "印象派",
+    "year": "1866",
+    "museum": "オルセー美術館",
+    "img": "images/impressionism/fifer.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%AC%9B%E3%82%92%E5%90%B9%E3%81%8F%E5%B0%91%E5%B9%B4%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A8%E3%83%89%E3%82%A5%E3%82%A2%E3%83%BC%E3%83%AB%E3%83%BB%E3%83%9E%E3%83%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1866%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i09",
+    "title": "グランド・ジャット島の日曜日の午後",
+    "artist": "ジョルジュ・スーラ",
+    "genre": "印象派",
+    "year": "1884-1886",
+    "museum": "シカゴ美術館",
+    "img": "images/impressionism/grande_jatte.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%89%E3%83%BB%E3%82%B8%E3%83%A3%E3%83%83%E3%83%88%E5%B3%B6%E3%81%AE%E6%97%A5%E6%9B%9C%E6%97%A5%E3%81%AE%E5%8D%88%E5%BE%8C%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B8%E3%83%A7%E3%83%AB%E3%82%B8%E3%83%A5%E3%83%BB%E3%82%B9%E3%83%BC%E3%83%A9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1884-1886%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "i10",
+    "title": "りんごとオレンジ",
+    "artist": "ポール・セザンヌ",
+    "genre": "印象派",
+    "year": "1899頃",
+    "museum": "オルセー美術館",
+    "img": "images/impressionism/apples_oranges.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23c8d8e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23a8c8d8%22%20cx%3D%22100%22%20cy%3D%2280%22%20r%3D%2240%22%20opacity%3D%22.4%22/%3E%3Ccircle%20fill%3D%22%23d8e8c8%22%20cx%3D%22300%22%20cy%3D%22200%22%20r%3D%2250%22%20opacity%3D%22.3%22/%3E%3Ccircle%20fill%3D%22%23e8d8c8%22%20cx%3D%22180%22%20cy%3D%22180%22%20r%3D%2235%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a4a6a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%8A%E3%82%93%E3%81%94%E3%81%A8%E3%82%AA%E3%83%AC%E3%83%B3%E3%82%B8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a6a8a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9D%E3%83%BC%E3%83%AB%E3%83%BB%E3%82%BB%E3%82%B6%E3%83%B3%E3%83%8C%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C74%2C106%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1899%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "p01",
+    "title": "星月夜",
+    "artist": "フィンセント・ファン・ゴッホ",
+    "genre": "後期印象派",
+    "year": "1889",
+    "museum": "ニューヨーク近代美術館",
+    "img": "images/post_impressionism/starry_night.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%98%9F%E6%9C%88%E5%A4%9C%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%95%E3%82%A3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%82%B4%E3%83%83%E3%83%9B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1889%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "p02",
+    "title": "ひまわり",
+    "artist": "フィンセント・ファン・ゴッホ",
+    "genre": "後期印象派",
+    "year": "1888",
+    "museum": "ナショナル・ギャラリー",
+    "img": "images/post_impressionism/sunflowers.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%81%B2%E3%81%BE%E3%82%8F%E3%82%8A%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%95%E3%82%A3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%82%B4%E3%83%83%E3%83%9B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1888%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "p03",
+    "title": "夜のカフェテラス",
+    "artist": "フィンセント・ファン・ゴッホ",
+    "genre": "後期印象派",
+    "year": "1888",
+    "museum": "クレラー＝ミュラー美術館",
+    "img": "images/post_impressionism/cafe_terrace.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%A4%9C%E3%81%AE%E3%82%AB%E3%83%95%E3%82%A7%E3%83%86%E3%83%A9%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%95%E3%82%A3%E3%83%B3%E3%82%BB%E3%83%B3%E3%83%88%E3%83%BB%E3%83%95%E3%82%A1%E3%83%B3%E3%83%BB%E3%82%B4%E3%83%83%E3%83%9B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1888%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "p04",
+    "title": "タヒチの女たち",
+    "artist": "ポール・ゴーギャン",
+    "genre": "後期印象派",
+    "year": "1891",
+    "museum": "オルセー美術館",
+    "img": "images/post_impressionism/tahitian_women.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%BF%E3%83%92%E3%83%81%E3%81%AE%E5%A5%B3%E3%81%9F%E3%81%A1%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9D%E3%83%BC%E3%83%AB%E3%83%BB%E3%82%B4%E3%83%BC%E3%82%AE%E3%83%A3%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1891%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "p05",
+    "title": "我々はどこから来たのか",
+    "artist": "ポール・ゴーギャン",
+    "genre": "後期印象派",
+    "year": "1897-1898",
+    "museum": "ボストン美術館",
+    "img": "images/post_impressionism/where_come_from.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%230a1a3a%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23f5c518%22%20cx%3D%22320%22%20cy%3D%2260%22%20r%3D%2225%22%20opacity%3D%22.6%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%2280%22%20cy%3D%2270%22%20r%3D%224%22%20opacity%3D%22.7%22/%3E%3Ccircle%20fill%3D%22%23e8c840%22%20cx%3D%22160%22%20cy%3D%2245%22%20r%3D%223%22%20opacity%3D%22.5%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23e8d5b7%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%88%91%E3%80%85%E3%81%AF%E3%81%A9%E3%81%93%E3%81%8B%E3%82%89%E6%9D%A5%E3%81%9F%E3%81%AE%E3%81%8B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23a8a070%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%9D%E3%83%BC%E3%83%AB%E3%83%BB%E3%82%B4%E3%83%BC%E3%82%AE%E3%83%A3%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1897-1898%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "e01",
+    "title": "叫び",
+    "artist": "エドヴァルド・ムンク",
+    "genre": "表現主義",
+    "year": "1893",
+    "museum": "オスロ国立美術館",
+    "img": "images/expressionism/the_scream.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ex%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238b2e2e%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232e1a1a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ex%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f0c8c8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%8F%AB%E3%81%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8a0a0%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A8%E3%83%89%E3%83%B4%E3%82%A1%E3%83%AB%E3%83%89%E3%83%BB%E3%83%A0%E3%83%B3%E3%82%AF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1893%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "e02",
+    "title": "接吻",
+    "artist": "グスタフ・クリムト",
+    "genre": "表現主義",
+    "year": "1907-1908",
+    "museum": "ベルヴェデーレ宮殿",
+    "img": "images/expressionism/the_kiss.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ex%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238b2e2e%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232e1a1a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ex%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f0c8c8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%8E%A5%E5%90%BB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8a0a0%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B0%E3%82%B9%E3%82%BF%E3%83%95%E3%83%BB%E3%82%AF%E3%83%AA%E3%83%A0%E3%83%88%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1907-1908%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "e03",
+    "title": "生命の樹",
+    "artist": "グスタフ・クリムト",
+    "genre": "表現主義",
+    "year": "1909",
+    "museum": "ストクレー邸",
+    "img": "images/expressionism/tree_of_life.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ex%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238b2e2e%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232e1a1a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ex%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%23f0c8c8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%94%9F%E5%91%BD%E3%81%AE%E6%A8%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8a0a0%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B0%E3%82%B9%E3%82%BF%E3%83%95%E3%83%BB%E3%82%AF%E3%83%AA%E3%83%A0%E3%83%88%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1909%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "m01",
+    "title": "ゲルニカ",
+    "artist": "パブロ・ピカソ",
+    "genre": "近代美術",
+    "year": "1937",
+    "museum": "ソフィア王妃芸術センター",
+    "img": "images/modern/guernica.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%B2%E3%83%AB%E3%83%8B%E3%82%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%91%E3%83%96%E3%83%AD%E3%83%BB%E3%83%94%E3%82%AB%E3%82%BD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1937%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "m02",
+    "title": "アヴィニョンの娘たち",
+    "artist": "パブロ・ピカソ",
+    "genre": "近代美術",
+    "year": "1907",
+    "museum": "ニューヨーク近代美術館",
+    "img": "images/modern/demoiselles_avignon.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%A2%E3%83%B4%E3%82%A3%E3%83%8B%E3%83%A7%E3%83%B3%E3%81%AE%E5%A8%98%E3%81%9F%E3%81%A1%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%91%E3%83%96%E3%83%AD%E3%83%BB%E3%83%94%E3%82%AB%E3%82%BD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1907%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "m03",
+    "title": "泣く女",
+    "artist": "パブロ・ピカソ",
+    "genre": "近代美術",
+    "year": "1937",
+    "museum": "テート・モダン",
+    "img": "images/modern/weeping_woman.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%B3%A3%E3%81%8F%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%91%E3%83%96%E3%83%AD%E3%83%BB%E3%83%94%E3%82%AB%E3%82%BD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1937%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "m04",
+    "title": "記憶の固執",
+    "artist": "サルバドール・ダリ",
+    "genre": "近代美術",
+    "year": "1931",
+    "museum": "ニューヨーク近代美術館",
+    "img": "images/modern/persistence_memory.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%A8%98%E6%86%B6%E3%81%AE%E5%9B%BA%E5%9F%B7%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B5%E3%83%AB%E3%83%90%E3%83%89%E3%83%BC%E3%83%AB%E3%83%BB%E3%83%80%E3%83%AA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1931%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "m05",
+    "title": "ダンス",
+    "artist": "アンリ・マティス",
+    "genre": "近代美術",
+    "year": "1910",
+    "museum": "エルミタージュ美術館",
+    "img": "images/modern/dance.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a0a0c8%22%20x%3D%2280%22%20y%3D%2260%22%20width%3D%2280%22%20height%3D%2280%22%20opacity%3D%22.2%22%20transform%3D%22rotate%2815%20120%20100%29%22/%3E%3Ccircle%20fill%3D%22%23c8a0a0%22%20cx%3D%22280%22%20cy%3D%22180%22%20r%3D%2240%22%20opacity%3D%22.2%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%80%E3%83%B3%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A2%E3%83%B3%E3%83%AA%E3%83%BB%E3%83%9E%E3%83%86%E3%82%A3%E3%82%B9%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1910%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "a01",
+    "title": "コンポジションVIII",
+    "artist": "ワシリー・カンディンスキー",
+    "genre": "抽象画",
+    "year": "1923",
+    "museum": "グッゲンハイム美術館",
+    "img": "images/abstract/composition_viii.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23e04040%22%20cx%3D%22120%22%20cy%3D%22100%22%20r%3D%2230%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%234040e0%22%20x%3D%22220%22%20y%3D%2280%22%20width%3D%2260%22%20height%3D%2260%22%20opacity%3D%22.2%22/%3E%3Cpolygon%20fill%3D%22%23e0c040%22%20points%3D%22200%2C180%20170%2C240%20230%2C240%22%20opacity%3D%22.25%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%82%B3%E3%83%B3%E3%83%9D%E3%82%B8%E3%82%B7%E3%83%A7%E3%83%B3VIII%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%AF%E3%82%B7%E3%83%AA%E3%83%BC%E3%83%BB%E3%82%AB%E3%83%B3%E3%83%87%E3%82%A3%E3%83%B3%E3%82%B9%E3%82%AD%E3%83%BC%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1923%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "a02",
+    "title": "赤・黄・青のコンポジション",
+    "artist": "ピエト・モンドリアン",
+    "genre": "抽象画",
+    "year": "1930",
+    "museum": "チューリッヒ美術館",
+    "img": "images/abstract/composition_ryb.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23e04040%22%20cx%3D%22120%22%20cy%3D%22100%22%20r%3D%2230%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%234040e0%22%20x%3D%22220%22%20y%3D%2280%22%20width%3D%2260%22%20height%3D%2260%22%20opacity%3D%22.2%22/%3E%3Cpolygon%20fill%3D%22%23e0c040%22%20points%3D%22200%2C180%20170%2C240%20230%2C240%22%20opacity%3D%22.25%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%B5%A4%E3%83%BB%E9%BB%84%E3%83%BB%E9%9D%92%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%9D%E3%82%B8%E3%82%B7%E3%83%A7%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%82%A8%E3%83%88%E3%83%BB%E3%83%A2%E3%83%B3%E3%83%89%E3%83%AA%E3%82%A2%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1930%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "a03",
+    "title": "ブロードウェイ・ブギウギ",
+    "artist": "ピエト・モンドリアン",
+    "genre": "抽象画",
+    "year": "1942-1943",
+    "museum": "ニューヨーク近代美術館",
+    "img": "images/abstract/broadway_boogie.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23e04040%22%20cx%3D%22120%22%20cy%3D%22100%22%20r%3D%2230%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%234040e0%22%20x%3D%22220%22%20y%3D%2280%22%20width%3D%2260%22%20height%3D%2260%22%20opacity%3D%22.2%22/%3E%3Cpolygon%20fill%3D%22%23e0c040%22%20points%3D%22200%2C180%20170%2C240%20230%2C240%22%20opacity%3D%22.25%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%96%E3%83%AD%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A4%E3%83%BB%E3%83%96%E3%82%AE%E3%82%A6%E3%82%AE%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%83%94%E3%82%A8%E3%83%88%E3%83%BB%E3%83%A2%E3%83%B3%E3%83%89%E3%83%AA%E3%82%A2%E3%83%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1942-1943%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "a04",
+    "title": "No.5, 1948",
+    "artist": "ジャクソン・ポロック",
+    "genre": "抽象画",
+    "year": "1948",
+    "museum": "個人蔵",
+    "img": "images/abstract/number_5.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e0d0e8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Ccircle%20fill%3D%22%23e04040%22%20cx%3D%22120%22%20cy%3D%22100%22%20r%3D%2230%22%20opacity%3D%22.3%22/%3E%3Crect%20fill%3D%22%234040e0%22%20x%3D%22220%22%20y%3D%2280%22%20width%3D%2260%22%20height%3D%2260%22%20opacity%3D%22.2%22/%3E%3Cpolygon%20fill%3D%22%23e0c040%22%20points%3D%22200%2C180%20170%2C240%20230%2C240%22%20opacity%3D%22.25%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a2a4a%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3ENo.5%2C%201948%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4a6a%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B8%E3%83%A3%E3%82%AF%E3%82%BD%E3%83%B3%E3%83%BB%E3%83%9D%E3%83%AD%E3%83%83%E3%82%AF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C42%2C74%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1948%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "re01",
+    "title": "落穂拾い",
+    "artist": "ジャン＝フランソワ・ミレー",
+    "genre": "写実主義",
+    "year": "1857",
+    "museum": "オルセー美術館",
+    "img": "images/realism/gleaners.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8d0c0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a89878%22%20x%3D%2240%22%20y%3D%22200%22%20width%3D%22320%22%20height%3D%222%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a3020%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%90%BD%E7%A9%82%E6%8B%BE%E3%81%84%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a5040%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B8%E3%83%A3%E3%83%B3%EF%BC%9D%E3%83%95%E3%83%A9%E3%83%B3%E3%82%BD%E3%83%AF%E3%83%BB%E3%83%9F%E3%83%AC%E3%83%BC%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C48%2C32%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1857%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "re02",
+    "title": "晩鐘",
+    "artist": "ジャン＝フランソワ・ミレー",
+    "genre": "写実主義",
+    "year": "1857-1859",
+    "museum": "オルセー美術館",
+    "img": "images/realism/angelus.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8d0c0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23a89878%22%20x%3D%2240%22%20y%3D%22200%22%20width%3D%22320%22%20height%3D%222%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22140%22%20text-anchor%3D%22middle%22%20fill%3D%22%233a3020%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%99%A9%E9%90%98%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22165%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a5040%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%B8%E3%83%A3%E3%83%B3%EF%BC%9D%E3%83%95%E3%83%A9%E3%83%B3%E3%82%BD%E3%83%AF%E3%83%BB%E3%83%9F%E3%83%AC%E3%83%BC%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2858%2C48%2C32%2C.3%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1857-1859%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "ro01",
+    "title": "民衆を導く自由の女神",
+    "artist": "ウジェーヌ・ドラクロワ",
+    "genre": "ロマン主義",
+    "year": "1830",
+    "museum": "ルーヴル美術館",
+    "img": "images/romanticism/liberty_leading.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ro%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234a6a8a%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231a2a3a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ro%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Cpath%20d%3D%22M0%20220Q100%20180%20200%20210Q300%20240%20400%20200L400%20300L0%20300Z%22%20fill%3D%22%231a2a1a%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8d8e8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%B0%91%E8%A1%86%E3%82%92%E5%B0%8E%E3%81%8F%E8%87%AA%E7%94%B1%E3%81%AE%E5%A5%B3%E7%A5%9E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%238aa0b8%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%A6%E3%82%B8%E3%82%A7%E3%83%BC%E3%83%8C%E3%83%BB%E3%83%89%E3%83%A9%E3%82%AF%E3%83%AD%E3%83%AF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1830%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "ro02",
+    "title": "雲海の上の旅人",
+    "artist": "カスパー・ダーヴィト・フリードリヒ",
+    "genre": "ロマン主義",
+    "year": "1818",
+    "museum": "ハンブルク美術館",
+    "img": "images/romanticism/wanderer_above_sea.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22ro%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234a6a8a%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231a2a3a%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20fill%3D%22url%28%23ro%29%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Cpath%20d%3D%22M0%20220Q100%20180%20200%20210Q300%20240%20400%20200L400%20300L0%20300Z%22%20fill%3D%22%231a2a1a%22%20opacity%3D%22.3%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c8d8e8%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E9%9B%B2%E6%B5%B7%E3%81%AE%E4%B8%8A%E3%81%AE%E6%97%85%E4%BA%BA%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20text-anchor%3D%22middle%22%20fill%3D%22%238aa0b8%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E3%82%AB%E3%82%B9%E3%83%91%E3%83%BC%E3%83%BB%E3%83%80%E3%83%BC%E3%83%B4%E3%82%A3%E3%83%88%E3%83%BB%E3%83%95%E3%83%AA%E3%83%BC%E3%83%89%E3%83%AA%E3%83%92%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%28255%2C255%2C255%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1818%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j01",
+    "title": "神奈川沖浪裏",
+    "artist": "葛飾北斎",
+    "genre": "浮世絵",
+    "year": "1831頃",
+    "museum": "メトロポリタン美術館ほか",
+    "img": "images/ukiyoe/great_wave.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%A5%9E%E5%A5%88%E5%B7%9D%E6%B2%96%E6%B5%AA%E8%A3%8F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%91%9B%E9%A3%BE%E5%8C%97%E6%96%8E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1831%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j02",
+    "title": "凱風快晴（赤富士）",
+    "artist": "葛飾北斎",
+    "genre": "浮世絵",
+    "year": "1831頃",
+    "museum": "各地に所蔵",
+    "img": "images/ukiyoe/red_fuji.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%87%B1%E9%A2%A8%E5%BF%AB%E6%99%B4%EF%BC%88%E8%B5%A4%E5%AF%8C%E5%A3%AB%EF%BC%89%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%91%9B%E9%A3%BE%E5%8C%97%E6%96%8E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1831%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j03",
+    "title": "東海道五十三次・日本橋",
+    "artist": "歌川広重",
+    "genre": "浮世絵",
+    "year": "1833-1834",
+    "museum": "各地に所蔵",
+    "img": "images/ukiyoe/nihonbashi.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9D%B1%E6%B5%B7%E9%81%93%E4%BA%94%E5%8D%81%E4%B8%89%E6%AC%A1%E3%83%BB%E6%97%A5%E6%9C%AC%E6%A9%8B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1833-1834%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j04",
+    "title": "見返り美人図",
+    "artist": "菱川師宣",
+    "genre": "浮世絵",
+    "year": "1690頃",
+    "museum": "東京国立博物館",
+    "img": "images/ukiyoe/mikaeri_bijin.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E8%A6%8B%E8%BF%94%E3%82%8A%E7%BE%8E%E4%BA%BA%E5%9B%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%8F%B1%E5%B7%9D%E5%B8%AB%E5%AE%A3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1690%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j05",
+    "title": "ビードロを吹く女",
+    "artist": "喜多川歌麿",
+    "genre": "浮世絵",
+    "year": "1790頃",
+    "museum": "各地に所蔵",
+    "img": "images/ukiyoe/vidro_woman.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%93%E3%83%BC%E3%83%89%E3%83%AD%E3%82%92%E5%90%B9%E3%81%8F%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E5%96%9C%E5%A4%9A%E5%B7%9D%E6%AD%8C%E9%BA%BF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1790%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j06",
+    "title": "三世大谷鬼次の奴江戸兵衛",
+    "artist": "東洲斎写楽",
+    "genre": "浮世絵",
+    "year": "1794",
+    "museum": "東京国立博物館",
+    "img": "images/ukiyoe/sharaku_otani.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E4%B8%89%E4%B8%96%E5%A4%A7%E8%B0%B7%E9%AC%BC%E6%AC%A1%E3%81%AE%E5%A5%B4%E6%B1%9F%E6%88%B8%E5%85%B5%E8%A1%9B%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%9D%B1%E6%B4%B2%E6%96%8E%E5%86%99%E6%A5%BD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1794%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j07",
+    "title": "名所江戸百景・亀戸梅屋舗",
+    "artist": "歌川広重",
+    "genre": "浮世絵",
+    "year": "1857",
+    "museum": "ブルックリン美術館",
+    "img": "images/ukiyoe/kameido_ume.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%90%8D%E6%89%80%E6%B1%9F%E6%88%B8%E7%99%BE%E6%99%AF%E3%83%BB%E4%BA%80%E6%88%B8%E6%A2%85%E5%B1%8B%E8%88%97%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1857%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j08",
+    "title": "富嶽三十六景・甲州石班澤",
+    "artist": "葛飾北斎",
+    "genre": "浮世絵",
+    "year": "1831頃",
+    "museum": "各地に所蔵",
+    "img": "images/ukiyoe/koshu_kajikazawa.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%AF%8C%E5%B6%BD%E4%B8%89%E5%8D%81%E5%85%AD%E6%99%AF%E3%83%BB%E7%94%B2%E5%B7%9E%E7%9F%B3%E7%8F%AD%E6%BE%A4%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%91%9B%E9%A3%BE%E5%8C%97%E6%96%8E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1831%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j09",
+    "title": "東海道五十三次・蒲原",
+    "artist": "歌川広重",
+    "genre": "浮世絵",
+    "year": "1833-1834",
+    "museum": "各地に所蔵",
+    "img": "images/ukiyoe/kanbara.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9D%B1%E6%B5%B7%E9%81%93%E4%BA%94%E5%8D%81%E4%B8%89%E6%AC%A1%E3%83%BB%E8%92%B2%E5%8E%9F%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%AD%8C%E5%B7%9D%E5%BA%83%E9%87%8D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1833-1834%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "j10",
+    "title": "ポッピンを吹く女",
+    "artist": "喜多川歌麿",
+    "genre": "浮世絵",
+    "year": "1790頃",
+    "museum": "各地に所蔵",
+    "img": "images/ukiyoe/poppin_woman.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23e8d8c8%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%238b2e2e%22%20x%3D%2220%22%20y%3D%2220%22%20width%3D%228%22%20height%3D%22260%22%20rx%3D%222%22%20opacity%3D%22.15%22/%3E%3Crect%20fill%3D%22%231a4a8a%22%20x%3D%22340%22%20y%3D%2240%22%20width%3D%2240%22%20height%3D%22200%22%20rx%3D%222%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a1810%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E3%83%9D%E3%83%83%E3%83%94%E3%83%B3%E3%82%92%E5%90%B9%E3%81%8F%E5%A5%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%235a4030%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E5%96%9C%E5%A4%9A%E5%B7%9D%E6%AD%8C%E9%BA%BF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C24%2C16%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1790%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp01",
+    "title": "風神雷神図屏風",
+    "artist": "俵屋宗達",
+    "genre": "日本画",
+    "year": "17世紀前半",
+    "museum": "建仁寺",
+    "img": "images/nihonga/fujin_raijin.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E9%A2%A8%E7%A5%9E%E9%9B%B7%E7%A5%9E%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E4%BF%B5%E5%B1%8B%E5%AE%97%E9%81%94%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E17%E4%B8%96%E7%B4%80%E5%89%8D%E5%8D%8A%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp02",
+    "title": "燕子花図屏風",
+    "artist": "尾形光琳",
+    "genre": "日本画",
+    "year": "1701頃",
+    "museum": "根津美術館",
+    "img": "images/nihonga/kakitsubata.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%87%95%E5%AD%90%E8%8A%B1%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E5%B0%BE%E5%BD%A2%E5%85%89%E7%90%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1701%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp03",
+    "title": "紅白梅図屏風",
+    "artist": "尾形光琳",
+    "genre": "日本画",
+    "year": "18世紀初頭",
+    "museum": "MOA美術館",
+    "img": "images/nihonga/kohaku_ume.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%B4%85%E7%99%BD%E6%A2%85%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E5%B0%BE%E5%BD%A2%E5%85%89%E7%90%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E18%E4%B8%96%E7%B4%80%E5%88%9D%E9%A0%AD%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp04",
+    "title": "松林図屏風",
+    "artist": "長谷川等伯",
+    "genre": "日本画",
+    "year": "16世紀末",
+    "museum": "東京国立博物館",
+    "img": "images/nihonga/shorin_zu.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%9D%BE%E6%9E%97%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E9%95%B7%E8%B0%B7%E5%B7%9D%E7%AD%89%E4%BC%AF%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E16%E4%B8%96%E7%B4%80%E6%9C%AB%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp05",
+    "title": "洛中洛外図屏風",
+    "artist": "狩野永徳",
+    "genre": "日本画",
+    "year": "1565頃",
+    "museum": "上杉博物館",
+    "img": "images/nihonga/rakuchu_rakugai.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%B4%9B%E4%B8%AD%E6%B4%9B%E5%A4%96%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E7%8B%A9%E9%87%8E%E6%B0%B8%E5%BE%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1565%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp06",
+    "title": "唐獅子図屏風",
+    "artist": "狩野永徳",
+    "genre": "日本画",
+    "year": "16世紀後半",
+    "museum": "宮内庁三の丸尚蔵館",
+    "img": "images/nihonga/karashishi.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%94%90%E7%8D%85%E5%AD%90%E5%9B%B3%E5%B1%8F%E9%A2%A8%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E7%8B%A9%E9%87%8E%E6%B0%B8%E5%BE%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E16%E4%B8%96%E7%B4%80%E5%BE%8C%E5%8D%8A%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp07",
+    "title": "湖畔",
+    "artist": "黒田清輝",
+    "genre": "日本画",
+    "year": "1897",
+    "museum": "東京国立博物館",
+    "img": "images/nihonga/kohan.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%B9%96%E7%95%94%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E9%BB%92%E7%94%B0%E6%B8%85%E8%BC%9D%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1897%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp08",
+    "title": "鮭",
+    "artist": "高橋由一",
+    "genre": "日本画",
+    "year": "1877頃",
+    "museum": "東京藝術大学",
+    "img": "images/nihonga/sake.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E9%AE%AD%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E9%AB%98%E6%A9%8B%E7%94%B1%E4%B8%80%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1877%E9%A0%83%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp09",
+    "title": "悲母観音",
+    "artist": "狩野芳崖",
+    "genre": "日本画",
+    "year": "1888",
+    "museum": "東京藝術大学",
+    "img": "images/nihonga/hibo_kannon.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E6%82%B2%E6%AF%8D%E8%A6%B3%E9%9F%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E7%8B%A9%E9%87%8E%E8%8A%B3%E5%B4%96%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1888%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp10",
+    "title": "無我",
+    "artist": "横山大観",
+    "genre": "日本画",
+    "year": "1897",
+    "museum": "東京国立博物館",
+    "img": "images/nihonga/muga.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E7%84%A1%E6%88%91%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E6%A8%AA%E5%B1%B1%E5%A4%A7%E8%A6%B3%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1897%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp11",
+    "title": "序の舞",
+    "artist": "上村松園",
+    "genre": "日本画",
+    "year": "1936",
+    "museum": "東京藝術大学",
+    "img": "images/nihonga/jo_no_mai.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E5%BA%8F%E3%81%AE%E8%88%9E%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E4%B8%8A%E6%9D%91%E6%9D%BE%E5%9C%92%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1936%3C/text%3E%3C/svg%3E"
+  },
+  {
+    "id": "jp12",
+    "title": "黒き猫",
+    "artist": "菱田春草",
+    "genre": "日本画",
+    "year": "1910",
+    "museum": "永青文庫",
+    "img": "images/nihonga/kuroki_neko.jpg",
+    "placeholder": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%20viewBox%3D%220%200%20400%20300%22%3E%3Crect%20fill%3D%22%23d8e8d0%22%20width%3D%22400%22%20height%3D%22300%22%20rx%3D%224%22/%3E%3Crect%20fill%3D%22%23b8960c%22%20x%3D%2230%22%20y%3D%2230%22%20width%3D%22340%22%20height%3D%22240%22%20rx%3D%222%22%20opacity%3D%22.06%22/%3E%3Ccircle%20fill%3D%22%238b2e2e%22%20cx%3D%22340%22%20cy%3D%2250%22%20r%3D%2220%22%20opacity%3D%22.08%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22130%22%20text-anchor%3D%22middle%22%20fill%3D%22%232a3a20%22%20font-size%3D%2214%22%20font-family%3D%22serif%22%3E%E9%BB%92%E3%81%8D%E7%8C%AB%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22158%22%20text-anchor%3D%22middle%22%20fill%3D%22%234a5a40%22%20font-size%3D%2211%22%20font-family%3D%22serif%22%3E%E8%8F%B1%E7%94%B0%E6%98%A5%E8%8D%89%3C/text%3E%3Ctext%20x%3D%22200%22%20y%3D%22280%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba%2842%2C58%2C32%2C.25%29%22%20font-size%3D%2210%22%20font-family%3D%22serif%22%3E1910%3C/text%3E%3C/svg%3E"
+  }
+];
+let P=JSON.parse(localStorage.getItem("pq4")||"null")||JSON.parse(JSON.stringify(DEFAULT_DATA));
+let progress=JSON.parse(localStorage.getItem("pq4_progress")||"{}");
+function saveProgress(){localStorage.setItem("pq4_progress",JSON.stringify(progress))}
+function markCorrect(pid,type){if(!progress[pid])progress[pid]={title:false,artist:false,genre:false};progress[pid][type]=true;saveProgress()}
+function isCollected(pid){const pr=progress[pid];return pr&&pr.title&&pr.artist&&pr.genre}
+function getCollected(){return P.filter(p=>isCollected(p.id))}
+let editId=null,mode="title",filterGenre="all",dashGenre="all",Qs=[],cQ=0,ok=0,ng=0,ans=false;
+const gs=document.getElementById("inputGenre");GENRES.forEach(g=>{const o=document.createElement("option");o.value=g;o.textContent=g;gs.appendChild(o)});
+document.querySelectorAll(".nav-tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".nav-tab").forEach(x=>x.classList.remove("active"));t.classList.add("active");document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById("page-"+t.dataset.page).classList.add("active");if(t.dataset.page==="quiz")rQI();if(t.dataset.page==="dashboard")renderD();if(t.dataset.page==="collection")renderColl()});
+document.querySelectorAll(".mb").forEach(b=>b.onclick=()=>{document.querySelectorAll(".mb").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.mode;document.getElementById("genreSelectArea").style.display=mode==="genre"?"":"none"});
+function getImgSrc(p){return p.image||p.img||p.placeholder||""}
+let collGenre="all";
+function renderColl(){
+const collected=getCollected();
+document.getElementById("collBadge").textContent=collected.length;
+const total=P.length;
+// Progress bars
+let tCnt=0,aCnt=0,gCnt=0;
+P.forEach(p=>{const pr=progress[p.id]||{};if(pr.title)tCnt++;if(pr.artist)aCnt++;if(pr.genre)gCnt++});
+document.getElementById("collProgress").innerHTML='<div class="cp-title"><span>進捗 '+collected.length+' / '+total+'</span><span style="font-size:.8rem;color:var(--txt3)">'+(Math.round(collected.length/total*100))+'%</span></div>'+
+'<div class="cp-bar-wrap"><span class="cp-bar-label">作品名</span><div class="cp-bar"><div class="cp-bar-fill title-bar" style="width:'+(tCnt/total*100)+'%"></div></div><span class="cp-bar-count">'+tCnt+'/'+total+'</span></div>'+
+'<div class="cp-bar-wrap"><span class="cp-bar-label">作者</span><div class="cp-bar"><div class="cp-bar-fill artist-bar" style="width:'+(aCnt/total*100)+'%"></div></div><span class="cp-bar-count">'+aCnt+'/'+total+'</span></div>'+
+'<div class="cp-bar-wrap"><span class="cp-bar-label">ジャンル</span><div class="cp-bar"><div class="cp-bar-fill genre-bar" style="width:'+(gCnt/total*100)+'%"></div></div><span class="cp-bar-count">'+gCnt+'/'+total+'</span></div>';
+// Stats
+const cGenres=[...new Set(collected.map(p=>p.genre))];
+document.getElementById("collStats").innerHTML='<div class="stat"><div class="num">'+collected.length+'</div><div class="lbl">コレクション</div></div><div class="stat"><div class="num">'+(total-collected.length)+'</div><div class="lbl">未収集</div></div><div class="stat"><div class="num">'+cGenres.length+'</div><div class="lbl">ジャンル</div></div>';
+// Filter
+const allGenres=[...new Set(P.map(p=>p.genre))];
+const cf=document.getElementById("collFilter");
+cf.innerHTML='<button class="gf-btn'+(collGenre==="all"?" active":"")+'" data-g="all">すべて ('+collected.length+')</button>'+allGenres.map(g=>{const cnt=collected.filter(p=>p.genre===g).length;return '<button class="gf-btn'+(collGenre===g?" active":"")+'" data-g="'+g+'">'+g+' ('+cnt+')</button>'}).join("");
+cf.querySelectorAll(".gf-btn").forEach(b=>b.onclick=()=>{collGenre=b.dataset.g;renderColl()});
+// Grid - show all paintings but highlight collected
+const display=collGenre==="all"?P:P.filter(p=>p.genre===collGenre);
+const g=document.getElementById("collGrid");
+const empty=document.getElementById("collEmpty");
+if(!collected.length){g.innerHTML="";empty.style.display="";return}
+empty.style.display="none";
+g.innerHTML=display.map(p=>{const pr=progress[p.id]||{};const ic=isCollected(p.id);
+return '<div class="pc'+(ic?" collected":"")+'"><img src="'+getImgSrc(p)+'" alt="'+p.title+'" style="'+(ic?"":"filter:grayscale(1) brightness(.7);opacity:.5")+'"><div class="inf"><div class="t">'+p.title+'</div><div class="a">'+p.artist+'</div><div class="g">'+p.genre+'</div></div><div class="coll-badges"><span class="cb-dot t-dot '+(pr.title?"earned":"unearned")+'" title="作品名">T</span><span class="cb-dot a-dot '+(pr.artist?"earned":"unearned")+'" title="作者">A</span><span class="cb-dot g-dot '+(pr.genre?"earned":"unearned")+'" title="ジャンル">G</span></div></div>'}).join("")}
+function buildGF(){const gf=document.getElementById("genreFilter");const gs=[...new Set(P.map(p=>p.genre))];gf.innerHTML='<button class="gf-btn active" data-g="all">すべて</button>'+gs.map(g=>'<button class="gf-btn" data-g="'+g+'">'+g+'</button>').join("");gf.querySelectorAll(".gf-btn").forEach(b=>b.onclick=()=>{gf.querySelectorAll(".gf-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");filterGenre=b.dataset.g;rQI()})}
+function rQI(){document.getElementById("quizArea").style.display="none";document.getElementById("quizResult").style.display="none";document.getElementById("quizIntro").style.display="block";const pool=filterGenre==="all"?P:P.filter(p=>p.genre===filterGenre);document.getElementById("readyCount").textContent=pool.length}
+function sh(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
+let selectedGenres=new Set(GENRES);
+function buildGenreChecks(){const gc=document.getElementById("genreChecks");const gs=[...new Set(P.map(p=>p.genre))];selectedGenres=new Set(gs);gc.innerHTML=gs.map(g=>{const cnt=P.filter(p=>p.genre===g).length;return '<label class="gc-label checked"><input type="checkbox" value="'+g+'" checked onchange="toggleGenreCheck(this)">'+g+'<span class="gc-count">('+cnt+')</span></label>'}).join("")}
+function toggleGenreCheck(cb){const lbl=cb.parentElement;if(cb.checked){selectedGenres.add(cb.value);lbl.classList.add("checked")}else{selectedGenres.delete(cb.value);lbl.classList.remove("checked")}}
+function toggleAllGenres(on){document.querySelectorAll("#genreChecks input").forEach(cb=>{cb.checked=on;const lbl=cb.parentElement;if(on){selectedGenres.add(cb.value);lbl.classList.add("checked")}else{selectedGenres.delete(cb.value);lbl.classList.remove("checked")}})}
+function genQ(){const pool=filterGenre==="all"?P:P.filter(p=>p.genre===filterGenre);const n=Math.min(pool.length,10),sel=sh(pool).slice(0,n);return sel.map(p=>{let ca,wrongs;if(mode==="title"){ca=p.title;wrongs=sh(P.filter(x=>x.id!==p.id).map(x=>x.title)).slice(0,3)}else if(mode==="artist"){ca=p.artist;const others=P.filter(x=>x.id!==p.id&&x.artist!==p.artist);wrongs=sh([...new Set(others.map(x=>x.artist))]).slice(0,3)}else{ca=p.genre;const avail=[...selectedGenres].filter(g=>g!==ca);wrongs=sh(avail).slice(0,3);while(wrongs.length<3){const fallback=GENRES.filter(g=>g!==ca&&!wrongs.includes(g));if(fallback.length)wrongs.push(sh(fallback)[0]);else{wrongs.push("不明");break}}}wrongs=wrongs.filter(x=>x!==ca).slice(0,3);while(wrongs.length<3)wrongs.push("不明");return{p,ca,ch:sh([ca,...wrongs])}})}
+function startQuiz(){if(mode==="genre"&&selectedGenres.size<4)return alert("ジャンルクイズには4つ以上のジャンルを選んでください");const pool=filterGenre==="all"?P:P.filter(p=>p.genre===filterGenre);if(pool.length<4)return alert("4作品以上必要です");Qs=genQ();cQ=0;ok=0;ng=0;ans=false;document.getElementById("quizIntro").style.display="none";document.getElementById("quizResult").style.display="none";document.getElementById("quizArea").style.display="";showQ()}
+function showQ(){ans=false;const q=Qs[cQ],t=Qs.length;document.getElementById("qNum").textContent=(cQ+1)+"/"+t;document.getElementById("correctCount").textContent=ok;document.getElementById("wrongCount").textContent=ng;document.getElementById("progressFill").style.width=(cQ/t*100)+"%";document.getElementById("quizImg").src=getImgSrc(q.p);document.getElementById("feedback").className="fb";document.getElementById("feedback").style.display="none";document.getElementById("nextBtn").style.display="none";const cd=document.getElementById("choices");cd.innerHTML="";q.ch.forEach(c=>{const b=document.createElement("button");b.className="cb";b.textContent=c;b.onclick=()=>selAns(b,c,q.ca);cd.appendChild(b)})}
+function selAns(btn,sel,ca){if(ans)return;ans=true;document.querySelectorAll(".cb").forEach(b=>{b.disabled=true;if(b.textContent===ca)b.classList.add("ok")});const fb=document.getElementById("feedback"),q=Qs[cQ];let detail="";if(sel===ca){ok++;btn.classList.add("ok");fb.className="fb show fbok";markCorrect(q.p.id,mode);
+const wasCollected=isCollected(q.p.id);if(mode==="title")detail=q.p.artist+" ／ "+q.p.genre+(q.p.year?" ("+q.p.year+")":"");if(wasCollected)detail+=" 🎉 コレクション達成！";else if(mode==="artist")detail="「"+q.p.title+"」"+q.p.genre;if(wasCollected)detail+=" 🎉 コレクション達成！";else detail="「"+q.p.title+"」"+q.p.artist;if(wasCollected)detail+=" 🎉 コレクション達成！";fb.innerHTML='⭕ 正解！<div class="detail">'+detail+"</div>"}else{ng++;btn.classList.add("ng");fb.className="fb show fbng";fb.innerHTML="❌ 不正解… 正解は「"+ca+"」"}document.getElementById("correctCount").textContent=ok;document.getElementById("wrongCount").textContent=ng;if(cQ<Qs.length-1)document.getElementById("nextBtn").style.display="";else setTimeout(showRes,1200)}
+function nextQuestion(){cQ++;showQ()}
+function showRes(){document.getElementById("quizArea").style.display="none";document.getElementById("quizResult").style.display="";const t=Qs.length,pct=ok/t;document.getElementById("resultScore").textContent=ok+" / "+t;if(pct>=.9){document.getElementById("resultEmoji").textContent="🏆";document.getElementById("resultTitle").textContent="Magnificent!";document.getElementById("resultMsg").textContent="芸術の真の鑑定家です"}else if(pct>=.6){document.getElementById("resultEmoji").textContent="🎨";document.getElementById("resultTitle").textContent="Well Done!";document.getElementById("resultMsg").textContent="素晴らしい審美眼をお持ちです"}else{document.getElementById("resultEmoji").textContent="📖";document.getElementById("resultTitle").textContent="Keep Exploring!";document.getElementById("resultMsg").textContent="美術館をもっと巡りましょう"}}
+function renderD(){const g=document.getElementById("cardGrid");document.getElementById("countBadge").textContent=P.length;const genres=[...new Set(P.map(p=>p.genre))];const artists=[...new Set(P.map(p=>p.artist))];document.getElementById("statsBar").innerHTML='<div class="stat"><div class="num">'+P.length+'</div><div class="lbl">作品数</div></div><div class="stat"><div class="num">'+artists.length+'</div><div class="lbl">画家数</div></div><div class="stat"><div class="num">'+genres.length+'</div><div class="lbl">ジャンル</div></div>';const df=document.getElementById("dashFilter");df.innerHTML='<button class="gf-btn'+(dashGenre==="all"?" active":"")+'" data-g="all">すべて</button>'+genres.map(gg=>'<button class="gf-btn'+(dashGenre===gg?" active":"")+'" data-g="'+gg+'">'+gg+" ("+P.filter(p=>p.genre===gg).length+")</button>").join("");df.querySelectorAll(".gf-btn").forEach(b=>b.onclick=()=>{dashGenre=b.dataset.g;renderD()});const filtered=dashGenre==="all"?P:P.filter(p=>p.genre===dashGenre);g.innerHTML=filtered.map(p=>'<div class="pc"><div class="acts"><button class="edb" onclick="event.stopPropagation();editP(\''+p.id+'\')" title="編集">✏️</button><button class="dlb" onclick="event.stopPropagation();delP(\''+p.id+'\')" title="削除">✕</button></div><img src="'+getImgSrc(p)+'" alt="'+p.title+'"><div class="inf"><div class="t">'+p.title+'</div><div class="a">'+p.artist+'</div><div class="g">'+p.genre+'</div></div></div>').join("")}
+function saveP(){localStorage.setItem("pq4",JSON.stringify(P));renderD();buildGF();buildGenreChecks()}
+function openModal(id){editId=id||null;document.getElementById("modalOverlay").classList.add("open");if(id){const p=P.find(x=>x.id===id);document.getElementById("modalTitle").textContent="Edit Artwork";document.getElementById("inputTitle").value=p.title;document.getElementById("inputArtist").value=p.artist;document.getElementById("inputGenre").value=p.genre||"";document.getElementById("inputYear").value=p.year||"";document.getElementById("inputMuseum").value=p.museum||"";document.getElementById("inputImgPath").value=p.img||"";if(p.image&&p.image.startsWith("data:image/svg")){document.getElementById("previewImg").style.display="none";document.getElementById("uploadPlaceholder").style.display=""}else if(p.image){document.getElementById("previewImg").src=p.image;document.getElementById("previewImg").style.display="";document.getElementById("uploadPlaceholder").style.display="none"}else{document.getElementById("previewImg").style.display="none";document.getElementById("uploadPlaceholder").style.display=""}}else{document.getElementById("modalTitle").textContent="Add Artwork";["inputTitle","inputArtist","inputYear","inputMuseum","inputImgPath"].forEach(id=>document.getElementById(id).value="");document.getElementById("inputGenre").value="";document.getElementById("previewImg").style.display="none";document.getElementById("uploadPlaceholder").style.display="";document.getElementById("fileInput").value=""}}
+function closeModal(){document.getElementById("modalOverlay").classList.remove("open");editId=null}
+function handleFile(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{document.getElementById("previewImg").src=ev.target.result;document.getElementById("previewImg").style.display="";document.getElementById("uploadPlaceholder").style.display="none"};r.readAsDataURL(f)}
+const ua=document.getElementById("uploadArea");ua.onclick=()=>document.getElementById("fileInput").click();document.getElementById("fileInput").onchange=handleFile;
+function savePainting(){const t=document.getElementById("inputTitle").value.trim(),a=document.getElementById("inputArtist").value.trim(),genre=document.getElementById("inputGenre").value,year=document.getElementById("inputYear").value.trim(),museum=document.getElementById("inputMuseum").value.trim(),imgPath=document.getElementById("inputImgPath").value.trim(),prev=document.getElementById("previewImg").src;const image=prev&&prev.startsWith("data:")&&!prev.startsWith("data:image/svg")?prev:"";if(!t||!a||!genre){alert("作品名、作者名、ジャンルは必須です");return}if(editId){const i=P.findIndex(p=>p.id===editId);if(i>=0){P[i].title=t;P[i].artist=a;P[i].genre=genre;P[i].year=year;P[i].museum=museum;if(imgPath)P[i].img=imgPath;if(image)P[i].image=image}}else{P.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),title:t,artist:a,genre,year,museum,img:imgPath,image,placeholder:""})}saveP();closeModal()}
+function editP(id){openModal(id)}
+function delP(id){if(!confirm("削除しますか？"))return;P=P.filter(p=>p.id!==id);saveP()}
+document.getElementById("modalOverlay").onclick=e=>{if(e.target===document.getElementById("modalOverlay"))closeModal()};
+buildGF();buildGenreChecks();renderD();rQI();document.getElementById("collBadge").textContent=getCollected().length;
+</script>
+</body>
+</html>
