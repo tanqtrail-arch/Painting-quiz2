@@ -104,17 +104,50 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond','Noto Sans JP',serif}
 .gc-label input{display:none}
 .gc-label.checked{background:var(--frd);color:#fff;border-color:var(--frd)}
 .gc-count{font-size:.7rem;opacity:.7;margin-left:2px}
+
+/* ALT System */
+.alt-badge{position:fixed;top:12px;right:16px;z-index:999;background:linear-gradient(135deg,#1a1a2e,#16213e);border:1.5px solid #d4af37;border-radius:12px;padding:8px 16px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,.4);font-family:'Cormorant Garamond',serif;cursor:default;transition:.3s}
+.alt-badge .alt-icon{font-size:1.2rem}
+.alt-badge .alt-val{color:#d4af37;font-weight:700;font-size:1.15rem;letter-spacing:.5px}
+.alt-badge .alt-unit{color:rgba(212,175,55,.6);font-size:.75rem;font-weight:500;margin-left:2px}
+.alt-float{position:fixed;z-index:1000;color:#4ade80;font-weight:700;font-size:1.3rem;pointer-events:none;font-family:'Cormorant Garamond',serif;text-shadow:0 2px 8px rgba(74,222,128,.4);animation:altUp 1.2s ease-out forwards}
+@keyframes altUp{0%{opacity:1;transform:translateY(0)}60%{opacity:1}100%{opacity:0;transform:translateY(-80px)}}
+.combo-flash{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1001;color:#fbbf24;font-weight:700;font-size:2rem;pointer-events:none;font-family:'Cormorant Garamond',serif;text-shadow:0 2px 12px rgba(251,191,36,.5);animation:comboIn .8s ease-out forwards}
+@keyframes comboIn{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}60%{transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+.result-alt{margin:20px 0;padding:20px;background:linear-gradient(135deg,rgba(74,222,128,.08),rgba(212,175,55,.08));border:1px solid rgba(74,222,128,.2);border-radius:var(--r)}
+.result-alt .ra-earned{color:#4ade80;font-size:2rem;font-weight:700;font-family:'Cormorant Garamond',serif;margin-bottom:4px}
+.result-alt .ra-breakdown{color:var(--txt3);font-size:.82rem;line-height:1.6}
+.result-alt .ra-total{color:var(--gold);font-size:1rem;font-weight:600;margin-top:8px;padding-top:8px;border-top:1px solid rgba(212,175,55,.15)}
+.stars{font-size:1.5rem;margin:8px 0;letter-spacing:4px}
+.line-section{background:linear-gradient(135deg,#0a0a1a,#111827);border-radius:var(--r);padding:28px;margin-top:32px;border:1px solid rgba(212,175,55,.15)}
+.line-section h3{color:#d4af37;font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.line-section .ls-field{margin-bottom:14px}
+.line-section .ls-field label{display:block;color:rgba(255,255,255,.5);font-size:.8rem;margin-bottom:5px}
+.line-section .ls-field input{width:100%;padding:10px 14px;background:#1a1a2e;border:1.5px solid rgba(212,175,55,.2);color:#fff;font-family:inherit;font-size:.9rem;border-radius:var(--r);outline:none}
+.line-section .ls-field input:focus{border-color:#d4af37}
+.line-btn{width:100%;padding:14px;border:none;background:linear-gradient(135deg,#06c755,#05a848);color:#fff;font-family:inherit;font-size:1rem;font-weight:700;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.25s;letter-spacing:.3px}
+.line-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 16px rgba(6,199,85,.3)}
+.line-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.line-confirm{display:none;margin-top:14px;padding:16px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:var(--r);text-align:center}
+.line-confirm.show{display:block;animation:fu .25s}
+.line-confirm p{color:#fbbf24;font-size:.9rem;margin-bottom:12px;font-weight:500}
+.line-confirm .lc-btns{display:flex;gap:10px;justify-content:center}
+.line-confirm .lc-btns button{padding:10px 28px;border:none;font-family:inherit;font-size:.88rem;font-weight:600;border-radius:var(--r);cursor:pointer}
+.lc-cancel{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+.lc-ok{background:#06c755;color:#fff}
+.alt-badge-hide{opacity:0;pointer-events:none}
 @media(max-width:600px){.nav{flex-direction:column;gap:10px;height:auto;padding:12px 16px}.ch{grid-template-columns:1fr}.cg{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
+<div class="alt-badge" id="altBadge"><span class="alt-icon">🪙</span><span class="alt-val" id="altDisplay">0</span><span class="alt-unit">ALT</span></div>
 <nav class="nav"><div class="nav-brand">🏛️ Art Museum Quiz</div><div class="nav-tabs"><button class="nav-tab active" data-page="quiz">Quiz</button><button class="nav-tab" data-page="collection">マイコレクション<span class="badge" id="collBadge" style="background:var(--grn)">0</span></button><button class="nav-tab" data-page="dashboard">管理<span class="badge" id="countBadge">0</span></button></div></nav>
 <div class="page active" id="page-quiz">
 <div class="qh"><h2>Gallery Quiz</h2><div class="sub">— 世界の名画65選 —</div>
 <div class="ms"><button class="mb active" data-mode="title">作品名</button><button class="mb" data-mode="artist">作者</button><button class="mb" data-mode="genre">ジャンル</button></div>
-<div class="genre-filter" id="genreFilter"></div>
-<div id="genreSelectArea" style="display:none;margin-top:18px">
-<div style="font-size:.82rem;color:var(--txt3);margin-bottom:8px;font-weight:500">出題ジャンルを4つ以上選んでください：</div>
+<div class="genre-filter" id="genreFilter" style="display:none"></div>
+<div id="genreSelectArea" style="margin-top:18px">
+<div style="font-size:.82rem;color:var(--txt3);margin-bottom:8px;font-weight:500">出題するジャンルを選んでください：</div>
 <div class="genre-checks" id="genreChecks"></div>
 <div style="margin-top:8px;display:flex;gap:8px;justify-content:center">
 <button class="gf-btn" onclick="toggleAllGenres(true)" style="font-size:.75rem">すべて選択</button>
@@ -129,7 +162,7 @@ h1,h2,h3,.serif{font-family:'Cormorant Garamond','Noto Sans JP',serif}
 <div class="fb" id="feedback"></div>
 <div class="ch" id="choices"></div>
 <button class="btn" id="nextBtn" style="display:none" onclick="nextQuestion()">Next →</button></div>
-<div id="quizResult" style="display:none"><div class="rc"><div class="em" id="resultEmoji">🏆</div><h2 id="resultTitle"></h2><div class="rs" id="resultScore"></div><p id="resultMsg"></p><button class="btn gold" onclick="startQuiz()">Try Again</button></div></div>
+<div id="quizResult" style="display:none"><div class="rc"><div class="em" id="resultEmoji">🏆</div><h2 id="resultTitle"></h2><div class="rs" id="resultScore"></div><p id="resultMsg"></p><div class="result-alt" id="resultAlt"></div><button class="btn gold" onclick="startQuiz()">Try Again</button></div></div>
 </div>
 
 <div class="page" id="page-collection">
@@ -847,7 +880,7 @@ function getCollected(){return P.filter(p=>isCollected(p.id))}
 let editId=null,mode="title",filterGenre="all",dashGenre="all",Qs=[],cQ=0,ok=0,ng=0,ans=false;
 const gs=document.getElementById("inputGenre");GENRES.forEach(g=>{const o=document.createElement("option");o.value=g;o.textContent=g;gs.appendChild(o)});
 document.querySelectorAll(".nav-tab").forEach(t=>t.onclick=()=>{document.querySelectorAll(".nav-tab").forEach(x=>x.classList.remove("active"));t.classList.add("active");document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById("page-"+t.dataset.page).classList.add("active");if(t.dataset.page==="quiz")rQI();if(t.dataset.page==="dashboard")renderD();if(t.dataset.page==="collection")renderColl()});
-document.querySelectorAll(".mb").forEach(b=>b.onclick=()=>{document.querySelectorAll(".mb").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.mode;document.getElementById("genreSelectArea").style.display=mode==="genre"?"":"none"});
+document.querySelectorAll(".mb").forEach(b=>b.onclick=()=>{document.querySelectorAll(".mb").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.mode;document.getElementById("genreSelectArea").style.display=""});
 function getImgSrc(p){return p.image||p.img||p.placeholder||""}
 let collGenre="all";
 function renderColl(){
@@ -878,19 +911,41 @@ empty.style.display="none";
 g.innerHTML=display.map(p=>{const pr=progress[p.id]||{};const ic=isCollected(p.id);
 return '<div class="pc'+(ic?" collected":"")+'"><img src="'+getImgSrc(p)+'" alt="'+p.title+'" style="'+(ic?"":"filter:grayscale(1) brightness(.7);opacity:.5")+'"><div class="inf"><div class="t">'+p.title+'</div><div class="a">'+p.artist+'</div><div class="g">'+p.genre+'</div></div><div class="coll-badges"><span class="cb-dot t-dot '+(pr.title?"earned":"unearned")+'" title="作品名">T</span><span class="cb-dot a-dot '+(pr.artist?"earned":"unearned")+'" title="作者">A</span><span class="cb-dot g-dot '+(pr.genre?"earned":"unearned")+'" title="ジャンル">G</span></div></div>'}).join("")}
 function buildGF(){const gf=document.getElementById("genreFilter");const gs=[...new Set(P.map(p=>p.genre))];gf.innerHTML='<button class="gf-btn active" data-g="all">すべて</button>'+gs.map(g=>'<button class="gf-btn" data-g="'+g+'">'+g+'</button>').join("");gf.querySelectorAll(".gf-btn").forEach(b=>b.onclick=()=>{gf.querySelectorAll(".gf-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");filterGenre=b.dataset.g;rQI()})}
-function rQI(){document.getElementById("quizArea").style.display="none";document.getElementById("quizResult").style.display="none";document.getElementById("quizIntro").style.display="block";const pool=filterGenre==="all"?P:P.filter(p=>p.genre===filterGenre);document.getElementById("readyCount").textContent=pool.length}
+function rQI(){altBadgeShow(true);document.getElementById("quizArea").style.display="none";document.getElementById("quizResult").style.display="none";document.getElementById("quizIntro").style.display="block";const pool=getPool();document.getElementById("readyCount").textContent=pool.length}
 function sh(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
 let selectedGenres=new Set(GENRES);
 function buildGenreChecks(){const gc=document.getElementById("genreChecks");const gs=[...new Set(P.map(p=>p.genre))];selectedGenres=new Set(gs);gc.innerHTML=gs.map(g=>{const cnt=P.filter(p=>p.genre===g).length;return '<label class="gc-label checked"><input type="checkbox" value="'+g+'" checked onchange="toggleGenreCheck(this)">'+g+'<span class="gc-count">('+cnt+')</span></label>'}).join("")}
 function toggleGenreCheck(cb){const lbl=cb.parentElement;if(cb.checked){selectedGenres.add(cb.value);lbl.classList.add("checked")}else{selectedGenres.delete(cb.value);lbl.classList.remove("checked")}}
 function toggleAllGenres(on){document.querySelectorAll("#genreChecks input").forEach(cb=>{cb.checked=on;const lbl=cb.parentElement;if(on){selectedGenres.add(cb.value);lbl.classList.add("checked")}else{selectedGenres.delete(cb.value);lbl.classList.remove("checked")}})}
-function genQ(){const pool=filterGenre==="all"?P:P.filter(p=>p.genre===filterGenre);const n=Math.min(pool.length,10),sel=sh(pool).slice(0,n);return sel.map(p=>{let ca,wrongs;if(mode==="title"){ca=p.title;wrongs=sh(P.filter(x=>x.id!==p.id).map(x=>x.title)).slice(0,3)}else if(mode==="artist"){ca=p.artist;const others=P.filter(x=>x.id!==p.id&&x.artist!==p.artist);wrongs=sh([...new Set(others.map(x=>x.artist))]).slice(0,3)}else{ca=p.genre;const avail=[...selectedGenres].filter(g=>g!==ca);wrongs=sh(avail).slice(0,3);while(wrongs.length<3){const fallback=GENRES.filter(g=>g!==ca&&!wrongs.includes(g));if(fallback.length)wrongs.push(sh(fallback)[0]);else{wrongs.push("不明");break}}}wrongs=wrongs.filter(x=>x!==ca).slice(0,3);while(wrongs.length<3)wrongs.push("不明");return{p,ca,ch:sh([ca,...wrongs])}})}
-function startQuiz(){if(mode==="genre"&&selectedGenres.size<4)return alert("ジャンルクイズには4つ以上のジャンルを選んでください");const pool=filterGenre==="all"?P:P.filter(p=>p.genre===filterGenre);if(pool.length<4)return alert("4作品以上必要です");Qs=genQ();cQ=0;ok=0;ng=0;ans=false;document.getElementById("quizIntro").style.display="none";document.getElementById("quizResult").style.display="none";document.getElementById("quizArea").style.display="";showQ()}
+function getPool(){const sg=[...selectedGenres];if(sg.length===0)return P;return P.filter(p=>sg.includes(p.genre))}
+function genQ(){const pool=getPool();const n=Math.min(pool.length,10),sel=sh(pool).slice(0,n);return sel.map(p=>{let ca,wrongs=[];
+if(mode==="title"){ca=p.title;
+const sameArtist=P.filter(x=>x.id!==p.id&&x.artist===p.artist).map(x=>x.title);
+const sameGenre=P.filter(x=>x.id!==p.id&&x.artist!==p.artist&&x.genre===p.genre).map(x=>x.title);
+const others=P.filter(x=>x.id!==p.id&&x.artist!==p.artist&&x.genre!==p.genre).map(x=>x.title);
+if(sameArtist.length)wrongs.push(sh(sameArtist)[0]);
+const sg=sh(sameGenre).filter(t=>!wrongs.includes(t));
+while(wrongs.length<2&&sg.length)wrongs.push(sg.shift());
+const ot=sh(others).filter(t=>!wrongs.includes(t));
+while(wrongs.length<3&&ot.length)wrongs.push(ot.shift());
+}else if(mode==="artist"){ca=p.artist;
+const sameGenre=[...new Set(P.filter(x=>x.id!==p.id&&x.artist!==p.artist&&x.genre===p.genre).map(x=>x.artist))];
+const otherGenre=[...new Set(P.filter(x=>x.id!==p.id&&x.artist!==p.artist&&!sameGenre.includes(x.artist)&&x.genre!==p.genre).map(x=>x.artist))];
+const sg2=sh(sameGenre);while(wrongs.length<2&&sg2.length)wrongs.push(sg2.shift());
+const og=sh(otherGenre).filter(a=>!wrongs.includes(a));
+while(wrongs.length<3&&og.length)wrongs.push(og.shift());
+}else{ca=p.genre;
+const avail=[...selectedGenres].filter(g=>g!==ca);
+wrongs=sh(avail).slice(0,3);
+while(wrongs.length<3){const fb=GENRES.filter(g=>g!==ca&&!wrongs.includes(g));if(fb.length)wrongs.push(sh(fb)[0]);else break}}
+wrongs=wrongs.filter(x=>x&&x!==ca).slice(0,3);while(wrongs.length<3)wrongs.push("不明");
+return{p,ca,ch:sh([ca,...wrongs])}})}
+function startQuiz(){if(mode==="genre"&&selectedGenres.size<4)return alert("ジャンルクイズには4つ以上のジャンルを選んでください");if(mode!=="genre"&&selectedGenres.size<1)return alert("1つ以上のジャンルを選んでください");roundAlt=0;combo=0;roundMaxCombo=0;altBadgeShow(false);const pool=getPool();if(pool.length<4)return alert("4作品以上必要です");Qs=genQ();cQ=0;ok=0;ng=0;ans=false;document.getElementById("quizIntro").style.display="none";document.getElementById("quizResult").style.display="none";document.getElementById("quizArea").style.display="";showQ()}
 function showQ(){ans=false;const q=Qs[cQ],t=Qs.length;document.getElementById("qNum").textContent=(cQ+1)+"/"+t;document.getElementById("correctCount").textContent=ok;document.getElementById("wrongCount").textContent=ng;document.getElementById("progressFill").style.width=(cQ/t*100)+"%";document.getElementById("quizImg").src=getImgSrc(q.p);document.getElementById("feedback").className="fb";document.getElementById("feedback").style.display="none";document.getElementById("nextBtn").style.display="none";const cd=document.getElementById("choices");cd.innerHTML="";q.ch.forEach(c=>{const b=document.createElement("button");b.className="cb";b.textContent=c;b.onclick=()=>selAns(b,c,q.ca);cd.appendChild(b)})}
-function selAns(btn,sel,ca){if(ans)return;ans=true;document.querySelectorAll(".cb").forEach(b=>{b.disabled=true;if(b.textContent===ca)b.classList.add("ok")});const fb=document.getElementById("feedback"),q=Qs[cQ];let detail="";if(sel===ca){ok++;btn.classList.add("ok");fb.className="fb show fbok";markCorrect(q.p.id,mode);
-const wasCollected=isCollected(q.p.id);if(mode==="title")detail=q.p.artist+" ／ "+q.p.genre+(q.p.year?" ("+q.p.year+")":"");if(wasCollected)detail+=" 🎉 コレクション達成！";else if(mode==="artist")detail="「"+q.p.title+"」"+q.p.genre;if(wasCollected)detail+=" 🎉 コレクション達成！";else detail="「"+q.p.title+"」"+q.p.artist;if(wasCollected)detail+=" 🎉 コレクション達成！";fb.innerHTML='⭕ 正解！<div class="detail">'+detail+"</div>"}else{ng++;btn.classList.add("ng");fb.className="fb show fbng";fb.innerHTML="❌ 不正解… 正解は「"+ca+"」"}document.getElementById("correctCount").textContent=ok;document.getElementById("wrongCount").textContent=ng;if(cQ<Qs.length-1)document.getElementById("nextBtn").style.display="";else setTimeout(showRes,1200)}
+function selAns(btn,sel,ca){if(ans)return;ans=true;document.querySelectorAll(".cb").forEach(b=>{b.disabled=true;if(b.textContent===ca)b.classList.add("ok")});const fb=document.getElementById("feedback"),q=Qs[cQ];let detail="";if(sel===ca){ok++;btn.classList.add("ok");fb.className="fb show fbok";markCorrect(q.p.id,mode);altOnCorrect(event);
+const wasCollected=isCollected(q.p.id);if(mode==="title")detail=q.p.artist+" ／ "+q.p.genre+(q.p.year?" ("+q.p.year+")":"");if(wasCollected)detail+=" 🎉 コレクション達成！";else if(mode==="artist")detail="「"+q.p.title+"」"+q.p.genre;if(wasCollected)detail+=" 🎉 コレクション達成！";else detail="「"+q.p.title+"」"+q.p.artist;if(wasCollected)detail+=" 🎉 コレクション達成！";fb.innerHTML='⭕ 正解！<div class="detail">'+detail+"</div>"}else{ng++;btn.classList.add("ng");fb.className="fb show fbng";altOnWrong();fb.innerHTML="❌ 不正解… 正解は「"+ca+"」"}document.getElementById("correctCount").textContent=ok;document.getElementById("wrongCount").textContent=ng;if(cQ<Qs.length-1)document.getElementById("nextBtn").style.display="";else setTimeout(showRes,1200)}
 function nextQuestion(){cQ++;showQ()}
-function showRes(){document.getElementById("quizArea").style.display="none";document.getElementById("quizResult").style.display="";const t=Qs.length,pct=ok/t;document.getElementById("resultScore").textContent=ok+" / "+t;if(pct>=.9){document.getElementById("resultEmoji").textContent="🏆";document.getElementById("resultTitle").textContent="Magnificent!";document.getElementById("resultMsg").textContent="芸術の真の鑑定家です"}else if(pct>=.6){document.getElementById("resultEmoji").textContent="🎨";document.getElementById("resultTitle").textContent="Well Done!";document.getElementById("resultMsg").textContent="素晴らしい審美眼をお持ちです"}else{document.getElementById("resultEmoji").textContent="📖";document.getElementById("resultTitle").textContent="Keep Exploring!";document.getElementById("resultMsg").textContent="美術館をもっと巡りましょう"}}
+function showRes(){document.getElementById("quizArea").style.display="none";document.getElementById("quizResult").style.display="";const t=Qs.length,pct=ok/t;altOnQuizEnd(ok,t);altBadgeShow(true);document.getElementById("resultScore").textContent=ok+" / "+t;if(pct>=.9){document.getElementById("resultEmoji").textContent="🏆";document.getElementById("resultTitle").textContent="Magnificent!";document.getElementById("resultMsg").textContent="芸術の真の鑑定家です"}else if(pct>=.6){document.getElementById("resultEmoji").textContent="🎨";document.getElementById("resultTitle").textContent="Well Done!";document.getElementById("resultMsg").textContent="素晴らしい審美眼をお持ちです"}else{document.getElementById("resultEmoji").textContent="📖";document.getElementById("resultTitle").textContent="Keep Exploring!";document.getElementById("resultMsg").textContent="美術館をもっと巡りましょう"}}
 function renderD(){const g=document.getElementById("cardGrid");document.getElementById("countBadge").textContent=P.length;const genres=[...new Set(P.map(p=>p.genre))];const artists=[...new Set(P.map(p=>p.artist))];document.getElementById("statsBar").innerHTML='<div class="stat"><div class="num">'+P.length+'</div><div class="lbl">作品数</div></div><div class="stat"><div class="num">'+artists.length+'</div><div class="lbl">画家数</div></div><div class="stat"><div class="num">'+genres.length+'</div><div class="lbl">ジャンル</div></div>';const df=document.getElementById("dashFilter");df.innerHTML='<button class="gf-btn'+(dashGenre==="all"?" active":"")+'" data-g="all">すべて</button>'+genres.map(gg=>'<button class="gf-btn'+(dashGenre===gg?" active":"")+'" data-g="'+gg+'">'+gg+" ("+P.filter(p=>p.genre===gg).length+")</button>").join("");df.querySelectorAll(".gf-btn").forEach(b=>b.onclick=()=>{dashGenre=b.dataset.g;renderD()});const filtered=dashGenre==="all"?P:P.filter(p=>p.genre===dashGenre);g.innerHTML=filtered.map(p=>'<div class="pc"><div class="acts"><button class="edb" onclick="event.stopPropagation();editP(\''+p.id+'\')" title="編集">✏️</button><button class="dlb" onclick="event.stopPropagation();delP(\''+p.id+'\')" title="削除">✕</button></div><img src="'+getImgSrc(p)+'" alt="'+p.title+'"><div class="inf"><div class="t">'+p.title+'</div><div class="a">'+p.artist+'</div><div class="g">'+p.genre+'</div></div></div>').join("")}
 function saveP(){localStorage.setItem("pq4",JSON.stringify(P));renderD();buildGF();buildGenreChecks()}
 function openModal(id){editId=id||null;document.getElementById("modalOverlay").classList.add("open");if(id){const p=P.find(x=>x.id===id);document.getElementById("modalTitle").textContent="Edit Artwork";document.getElementById("inputTitle").value=p.title;document.getElementById("inputArtist").value=p.artist;document.getElementById("inputGenre").value=p.genre||"";document.getElementById("inputYear").value=p.year||"";document.getElementById("inputMuseum").value=p.museum||"";document.getElementById("inputImgPath").value=p.img||"";if(p.image&&p.image.startsWith("data:image/svg")){document.getElementById("previewImg").style.display="none";document.getElementById("uploadPlaceholder").style.display=""}else if(p.image){document.getElementById("previewImg").src=p.image;document.getElementById("previewImg").style.display="";document.getElementById("uploadPlaceholder").style.display="none"}else{document.getElementById("previewImg").style.display="none";document.getElementById("uploadPlaceholder").style.display=""}}else{document.getElementById("modalTitle").textContent="Add Artwork";["inputTitle","inputArtist","inputYear","inputMuseum","inputImgPath"].forEach(id=>document.getElementById(id).value="");document.getElementById("inputGenre").value="";document.getElementById("previewImg").style.display="none";document.getElementById("uploadPlaceholder").style.display="";document.getElementById("fileInput").value=""}}
@@ -902,6 +957,123 @@ function editP(id){openModal(id)}
 function delP(id){if(!confirm("削除しますか？"))return;P=P.filter(p=>p.id!==id);saveP()}
 document.getElementById("modalOverlay").onclick=e=>{if(e.target===document.getElementById("modalOverlay"))closeModal()};
 buildGF();buildGenreChecks();renderD();rQI();document.getElementById("collBadge").textContent=getCollected().length;
+
+// ===== TRAIL ALT SYSTEM =====
+let altTotal=0,altSession=0,combo=0,roundAlt=0,roundCombo=0,roundMaxCombo=0,clearedLevels=new Set();
+
+function updateAltUI(){
+document.getElementById("altDisplay").textContent=altTotal;
+document.getElementById("lineAltDisplay").textContent=altTotal+" ALT";
+document.getElementById("lineConfirmText").textContent="⚠️ "+altTotal+"ALTを報告してリセットします";
+updateLineBtn();
+}
+
+function addAlt(n,x,y){
+altTotal+=n;roundAlt+=n;
+updateAltUI();
+// floating animation
+const f=document.createElement("div");f.className="alt-float";f.textContent="+"+n+" ALT";
+f.style.left=(x||window.innerWidth/2-40)+"px";f.style.top=(y||window.innerHeight/2-60)+"px";
+document.body.appendChild(f);setTimeout(()=>f.remove(),1300);
+}
+
+function showCombo(c){
+if(c<2)return;
+const f=document.createElement("div");f.className="combo-flash";f.textContent=c+" COMBO!";
+document.body.appendChild(f);setTimeout(()=>f.remove(),900);
+}
+
+function getAltForCombo(c){
+if(c>=4)return 3;
+if(c>=2)return 2;
+return 1;
+}
+
+function altOnCorrect(evt){
+combo++;
+if(combo>roundMaxCombo)roundMaxCombo=combo;
+const reward=getAltForCombo(combo);
+const rect=evt?evt.target.getBoundingClientRect():null;
+const x=rect?rect.left+rect.width/2-30:null;
+const y=rect?rect.top-20:null;
+addAlt(reward,x,y);
+showCombo(combo);
+}
+
+function altOnWrong(){combo=0}
+
+function getStars(correct,total){
+const pct=correct/total;
+if(pct>=1)return 3;
+if(pct>=0.8)return 2;
+return 1;
+}
+
+function getStarBonus(stars){
+if(stars===3)return 20;
+if(stars===2)return 10;
+return 5;
+}
+
+function getLevelKey(){return(filterGenre||"all")+"_"+mode}
+
+function altOnQuizEnd(correct,total){
+const stars=getStars(correct,total);
+const starBonus=getStarBonus(stars);
+altTotal+=starBonus;roundAlt+=starBonus;
+const levelKey=getLevelKey();
+let firstClear=false;
+if(!clearedLevels.has(levelKey)){clearedLevels.add(levelKey);altTotal+=30;roundAlt+=30;firstClear=true}
+updateAltUI();
+// Build result display
+const starStr="★".repeat(stars)+"☆".repeat(3-stars);
+const collected=typeof getCollected==="function"?getCollected().length:0;
+const totalP=P.length;
+let html='<div class="ra-earned">+'+roundAlt+' ALT</div>';
+html+='<div class="stars">'+starStr+'</div>';
+html+='<div class="ra-breakdown">';
+html+='正解報酬: '+(roundAlt-starBonus-(firstClear?30:0))+' ALT';
+if(roundMaxCombo>=2)html+=' (最大'+roundMaxCombo+'コンボ)';
+html+='<br>クリアボーナス('+starStr+'): +'+starBonus+' ALT';
+if(firstClear)html+='<br>🎉 初クリアボーナス: +30 ALT';
+html+='</div>';
+html+='<div class="ra-total">🪙 合計: '+altTotal+' ALT</div>';
+document.getElementById("resultAlt").innerHTML=html;
+}
+
+// Hide ALT badge during quiz
+function altBadgeShow(show){document.getElementById("altBadge").classList.toggle("alt-badge-hide",!show)}
+
+// LINE report
+function updateLineBtn(){
+const name=document.getElementById("lineNameInput").value.trim();
+const btn=document.getElementById("lineBtn");
+btn.disabled=!(name&&altTotal>0);
+}
+function showLineConfirm(){document.getElementById("lineConfirm").classList.add("show")}
+function hideLineConfirm(){document.getElementById("lineConfirm").classList.remove("show")}
+function sendToLine(){
+const name=document.getElementById("lineNameInput").value.trim();
+const collected=typeof getCollected==="function"?getCollected().length:0;
+const totalP=P.length;
+const msg="【Art Museum Quiz ALT報告】\n名前: "+name+"\n💰 "+altTotal+"ALT\n🖼️ "+collected+"/"+totalP+"作品コレクション";
+const url="https://line.me/R/oaMessage/@trail_official/?"+encodeURIComponent(msg);
+window.open(url,"_blank");
+altTotal=0;roundAlt=0;combo=0;
+updateAltUI();hideLineConfirm();
+}
+
 </script>
+
+<div style="max-width:960px;margin:0 auto;padding:0 24px 40px" id="lineReportWrap">
+<div class="line-section">
+<h3>💰 ALTをTRAILに報告する</h3>
+<div class="ls-field"><label>名前</label><input type="text" id="lineNameInput" placeholder="名前を入力" oninput="updateLineBtn()"></div>
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:12px;background:rgba(212,175,55,.06);border-radius:8px"><span style="color:rgba(255,255,255,.5);font-size:.85rem">報告するALT</span><span style="color:#d4af37;font-weight:700;font-size:1.3rem;font-family:'Cormorant Garamond',serif" id="lineAltDisplay">0 ALT</span></div>
+<button class="line-btn" id="lineBtn" disabled onclick="showLineConfirm()">💬 LINEで報告する</button>
+<div class="line-confirm" id="lineConfirm"><p id="lineConfirmText">⚠️ 0ALTを報告してリセットします</p><div class="lc-btns"><button class="lc-cancel" onclick="hideLineConfirm()">やめる</button><button class="lc-ok" onclick="sendToLine()">OK！送る</button></div></div>
+</div>
+</div>
+
 </body>
 </html>
