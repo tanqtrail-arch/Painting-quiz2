@@ -963,9 +963,6 @@ let altTotal=0,altSession=0,combo=0,roundAlt=0,roundCombo=0,roundMaxCombo=0,clea
 
 function updateAltUI(){
 document.getElementById("altDisplay").textContent=altTotal;
-document.getElementById("lineAltDisplay").textContent=altTotal+" ALT";
-document.getElementById("lineConfirmText").textContent="⚠️ "+altTotal+"ALTを報告してリセットします";
-updateLineBtn();
 }
 
 function addAlt(n,x,y){
@@ -1065,15 +1062,31 @@ updateAltUI();hideLineConfirm();
 
 </script>
 
-<div style="max-width:960px;margin:0 auto;padding:0 24px 40px" id="lineReportWrap">
-<div class="line-section">
-<h3>💰 ALTをTRAILに報告する</h3>
-<div class="ls-field"><label>名前</label><input type="text" id="lineNameInput" placeholder="名前を入力" oninput="updateLineBtn()"></div>
-<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:12px;background:rgba(212,175,55,.06);border-radius:8px"><span style="color:rgba(255,255,255,.5);font-size:.85rem">報告するALT</span><span style="color:#d4af37;font-weight:700;font-size:1.3rem;font-family:'Cormorant Garamond',serif" id="lineAltDisplay">0 ALT</span></div>
-<button class="line-btn" id="lineBtn" disabled onclick="showLineConfirm()">💬 LINEで報告する</button>
-<div class="line-confirm" id="lineConfirm"><p id="lineConfirmText">⚠️ 0ALTを報告してリセットします</p><div class="lc-btns"><button class="lc-cancel" onclick="hideLineConfirm()">やめる</button><button class="lc-ok" onclick="sendToLine()">OK！送る</button></div></div>
-</div>
-</div>
+<!-- ===== TrailNav v2 ===== -->
+<script src="trail-nav.js"></script>
+<script>
+TrailNav.init({
+  gameName: '絵画クイズ',
+  gameId: 'Painting-quiz2',
+  gameEmoji: '🖼️',
+  gameHomeId: 'page-quiz',
+  tgp32Url: 'https://trail-game-pro-3-2.onrender.com',
+  apiBase: 'https://trail-game-pro-3-2.onrender.com/api',
+});
+
+// showRes完了後にTrailNavへスコア送信するためのフック
+const _origShowRes = showRes;
+showRes = function() {
+  _origShowRes();
+  const t = Qs.length;
+  TrailNav.reportGameResult({
+    score: ok * 10,
+    correctCount: ok,
+    totalCount: t,
+    maxStreak: roundMaxCombo || 0,
+  });
+};
+</script>
 
 </body>
 </html>
