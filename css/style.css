@@ -450,7 +450,7 @@ a {
   z-index: 2;
 }
 
-.streak-badge.show {
+.streak-badge.visible {
   display: block;
   animation: streakPop 0.4s ease;
 }
@@ -611,11 +611,11 @@ a {
   min-height: 32px;
 }
 
-.quiz-feedback.correct-text {
+.quiz-feedback.correct {
   color: var(--success);
 }
 
-.quiz-feedback.wrong-text {
+.quiz-feedback.wrong {
   color: var(--error);
 }
 
@@ -634,7 +634,7 @@ a {
   transition: all 0.2s;
 }
 
-.btn-next.show {
+.btn-next.visible {
   display: block;
   animation: screenFadeIn 0.3s ease;
 }
