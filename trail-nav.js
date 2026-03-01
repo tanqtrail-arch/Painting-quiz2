@@ -116,13 +116,30 @@ const TrailNav = (() => {
 
   // ===== ナビゲーション =====
 
-  // ★ TGP3.2に戻る（return_urlへ遷移、なければフォールバックUI表示）
+  // ★ TGP3.2に戻る（return_urlへ遷移、なければtgp32Url/app/へ）
   function goToTGP32() {
     if (params.returnUrl) {
-      window.location.href = params.returnUrl;
+      // return_url に /app/ が含まれていなければ付与
+      let url = params.returnUrl;
+      try {
+        const u = new URL(url);
+        if (u.pathname === '/' || u.pathname === '') {
+          u.pathname = '/app/';
+          url = u.toString();
+        }
+      } catch (e) {}
+      window.location.href = url;
       return;
     }
-    // return_urlがない場合のフォールバック（history.backで戻れるボタン付き）
+    // tgp32Url が設定されていればそこへ遷移（/app/ 自動付与）
+    if (config.tgp32Url) {
+      const portalUrl = config.tgp32Url.endsWith('/app/')
+        ? config.tgp32Url
+        : config.tgp32Url.replace(/\/$/, '') + '/app/';
+      window.location.href = portalUrl;
+      return;
+    }
+    // フォールバック（history.backで戻れるボタン付き）
     document.body.innerHTML = `
       <div style="text-align:center; padding:60px 20px; font-family:sans-serif;
                   background:#1a1a2e; color:#fff; min-height:100vh;
