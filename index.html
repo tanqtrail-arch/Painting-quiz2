@@ -315,16 +315,7 @@
   <!-- TrailNav v2 連携 -->
   <script src="trail-nav.js"></script>
   <script>
-    if (typeof TrailNav !== 'undefined') {
-      TrailNav.init({
-        gameName: '絵画クイズ',
-        gameId: 'Painting-quiz2',
-        gameEmoji: '🖼️',
-        gameHomeId: 'screen-home',
-        tgp32Url: 'https://trail-game-pro-3-2.onrender.com',
-        apiBase: 'https://trail-game-pro-3-2.onrender.com/api',
-      });
-    }
+    DarwinBridge.ready();
   </script>
 
 </body>
